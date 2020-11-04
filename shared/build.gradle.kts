@@ -2,8 +2,10 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
     kotlin("multiplatform")
-    id("com.android.library")
-    id("kotlin-android-extensions")
+    id(Plugins.androidLibrary)
+    kotlin(Plugins.kotlinExtensions)
+    id(Plugins.serialization)
+    kotlin(Plugins.kapt)
 }
 group = "com.wind.deezerkmp"
 version = "1.0-SNAPSHOT"
@@ -15,7 +17,13 @@ repositories {
     mavenCentral()
 }
 kotlin {
-    android()
+    android {
+        tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+            kotlinOptions {
+                jvmTarget = "1.8"
+            }
+        }
+    }
     ios {
         binaries {
             framework {
@@ -24,7 +32,18 @@ kotlin {
         }
     }
     sourceSets {
-        val commonMain by getting
+        val commonMain by getting {
+            dependencies {
+                implementation(Libs.Injection.core)
+                implementation(Libs.Thread.core)
+                implementation(Libs.Network.core)
+                implementation(Libs.Network.core2)
+                implementation(Libs.Network.parser)
+                implementation(Libs.Network.parser2)
+                implementation(Libs.Network.logCore)
+                implementation(Libs.Network.logCore2)
+            }
+        }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test-common"))
@@ -33,7 +52,11 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                implementation("com.google.android.material:material:1.2.0")
+                implementation(Libs.Android.viewModel)
+                implementation(Libs.Android.liveData)
+                implementation(Libs.Network.android)
+                implementation(Libs.Network.logAndroid)
+                implementation(Libs.Helper.log)
             }
         }
         val androidTest by getting {
@@ -42,23 +65,31 @@ kotlin {
                 implementation("junit:junit:4.12")
             }
         }
-        val iosMain by getting
+        val iosMain by getting {
+            dependencies {
+                implementation(Libs.Network.ios)
+            }
+        }
         val iosTest by getting
     }
 }
 android {
-    compileSdkVersion(29)
+    compileSdkVersion(Configs.compileSdk)
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
-        minSdkVersion(24)
-        targetSdkVersion(29)
-        versionCode = 1
-        versionName = "1.0"
+        minSdkVersion(Configs.minSdk)
+        targetSdkVersion(Configs.targetSdk)
+        versionCode = Configs.versionCode
+        versionName = Configs.versionName
     }
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
         }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
 val packForXcode by tasks.creating(Sync::class) {
