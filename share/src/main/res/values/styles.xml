@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="RoundView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/default_radius</item>
+    </style>
+
+    <style name="CircleView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+<!--    large numb like 180dp make the corner round like circle-->
+    <style name="RoundViewLargeRadius">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">180dp</item>
+    </style>
+
+    <attr name="colorDrawable" format="reference|color"/>
+</resources>

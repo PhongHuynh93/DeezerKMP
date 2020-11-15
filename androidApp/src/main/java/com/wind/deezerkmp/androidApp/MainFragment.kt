@@ -5,7 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import com.wind.deezerkmp.androidApp.databinding.FragmentMainBinding
+import com.wind.deezerkmp.androidApp.ui.home.GenreListFragment
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import timber.log.Timber
+import util.addFragment
 
 /**
  * Created by Phong Huynh on 11/4/2020
@@ -27,5 +32,10 @@ class MainFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
         }
         return viewBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        addFragment(R.id.root, GenreListFragment.newInstance())
     }
 }

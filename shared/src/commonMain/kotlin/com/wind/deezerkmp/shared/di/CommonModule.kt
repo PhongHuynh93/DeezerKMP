@@ -1,7 +1,9 @@
 package com.wind.deezerkmp.shared.di
 
+import com.wind.animelist.shared.base.ioDispatcher
 import com.wind.deezerkmp.shared.data.Repository
 import com.wind.deezerkmp.shared.data.RepositoryImpl
+import com.wind.deezerkmp.shared.domain.usecase.GetGenreListUseCase
 import io.ktor.client.*
 import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*
@@ -28,6 +30,7 @@ val commonModule = module {
             install(JsonFeature) {
                 serializer = KotlinxSerializer(kotlinx.serialization.json.Json {
                     ignoreUnknownKeys = true
+                    isLenient = true
                 })
             }
             install(Logging) {
@@ -37,4 +40,5 @@ val commonModule = module {
         }
         RepositoryImpl(httpClient)
     }
+    factory { GetGenreListUseCase(ioDispatcher, get()) }
 }
