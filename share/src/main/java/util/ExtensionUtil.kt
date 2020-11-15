@@ -322,18 +322,25 @@ fun FragmentTransaction.useAnim() {
     )
 }
 
-fun FragmentActivity.addFragment(id: Int, fragment: Fragment) {
+fun FragmentActivity.addFragment(id: Int, fragment: Fragment, tag: String? = null) {
     if (findFragmentById(id) == null) {
         supportFragmentManager.commit(true) {
-            add(id, fragment)
+            add(id, fragment, tag)
         }
     }
 }
 
-fun Fragment.addFragment(id: Int, fragment: Fragment) {
-    if (findFragmentById(id) == null) {
-        childFragmentManager.commit(true) {
-            add(id, fragment)
+fun FragmentActivity.replaceFragment(
+    frameId: Int, fragment: Fragment, tag: String? = null,
+    isAddBackStack: Boolean = true, useAnim: Boolean = true
+) {
+    supportFragmentManager.commit(true) {
+        replace(frameId, fragment, tag)
+        if (isAddBackStack) {
+            addToBackStack(tag)
+        }
+        if (useAnim) {
+            useAnim()
         }
     }
 }
@@ -350,37 +357,38 @@ fun FragmentActivity.popFragment() {
     }
 }
 
+fun FragmentActivity.findFragmentByTag(tag: String?): Fragment? {
+    return supportFragmentManager.findFragmentByTag(tag)
+}
+
+fun FragmentActivity.findFragmentById(id: Int): Fragment? {
+    return supportFragmentManager.findFragmentById(id)
+}
+
+
+fun Fragment.addFragment(id: Int, fragment: Fragment, tag: String? = null) {
+    if (findFragmentById(id) == null) {
+        childFragmentManager.commit(true) {
+            add(id, fragment, tag)
+        }
+    }
+}
+
+fun Fragment.replaceFragment(frameId: Int, fragment: Fragment, tag: String? = null, isAddBackStack: Boolean = true, useAnim: Boolean = true) {
+    childFragmentManager.commit(true) {
+        replace(frameId, fragment, tag)
+        if (isAddBackStack) {
+            addToBackStack(null)
+        }
+        if (useAnim) {
+            useAnim()
+        }
+    }
+}
+
 fun Fragment.removeFragment(tag: String) {
     val fragment = childFragmentManager.findFragmentByTag(tag)
     if (fragment != null) childFragmentManager.beginTransaction().remove(fragment).commitAllowingStateLoss()
-}
-
-
-fun FragmentActivity.replaceFragment(
-    fragment: Fragment, frameId: Int, tag: String,
-    isAddBackStack: Boolean = true, useAnim: Boolean = false
-) {
-    supportFragmentManager.inTransaction(useAnim) {
-        replace(frameId, fragment, tag)
-            .apply {
-                if (isAddBackStack) {
-                    addToBackStack(tag)
-                }
-            }
-    }
-}
-
-fun Fragment.replaceFragment(fragment: Fragment, frameId: Int, tag: String? = null, isAddBackStack: Boolean = false) {
-    if (childFragmentManager.findFragmentByTag(tag) == null) {
-        childFragmentManager.inTransaction {
-            replace(frameId, fragment, tag)
-                .apply {
-                    if (isAddBackStack) {
-                        addToBackStack(null)
-                    }
-                }
-        }
-    }
 }
 
 fun Fragment.popFragment() {
@@ -401,14 +409,6 @@ fun Fragment.findFragmentById(id: Int): Fragment? {
 
 fun Fragment.findFragmentByTag(tag: String?): Fragment? {
     return childFragmentManager.findFragmentByTag(tag)
-}
-
-fun FragmentActivity.findFragmentByTag(tag: String?): Fragment? {
-    return supportFragmentManager.findFragmentByTag(tag)
-}
-
-fun FragmentActivity.findFragmentById(id: Int): Fragment? {
-    return supportFragmentManager.findFragmentById(id)
 }
 
 fun Fragment.setUpToolbar(toolbar: Toolbar, title: String? = null, showUpIcon: Boolean = false) {
