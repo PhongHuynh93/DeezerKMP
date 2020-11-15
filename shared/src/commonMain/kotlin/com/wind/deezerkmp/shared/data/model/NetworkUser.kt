@@ -1,6 +1,5 @@
 package com.wind.deezerkmp.shared.data.model
 
-import com.wind.deezerkmp.shared.domain.model.Person
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

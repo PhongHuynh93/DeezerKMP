@@ -3,6 +3,7 @@ package com.wind.deezerkmp.shared.di
 import com.wind.animelist.shared.base.ioDispatcher
 import com.wind.deezerkmp.shared.data.Repository
 import com.wind.deezerkmp.shared.data.RepositoryImpl
+import com.wind.deezerkmp.shared.domain.usecase.GetArtistListByGenreUseCase
 import com.wind.deezerkmp.shared.domain.usecase.GetGenreListUseCase
 import io.ktor.client.*
 import io.ktor.client.features.json.*
@@ -41,4 +42,5 @@ val commonModule = module {
         RepositoryImpl(httpClient)
     }
     factory { GetGenreListUseCase(ioDispatcher, get()) }
+    factory { GetArtistListByGenreUseCase(ioDispatcher, get()) }
 }

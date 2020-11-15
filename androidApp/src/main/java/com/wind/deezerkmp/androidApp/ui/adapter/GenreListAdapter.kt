@@ -26,7 +26,13 @@ class GenreListAdapter constructor(
     }
 }) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GenreViewHolder {
-        return GenreViewHolder(ItemGenreBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return GenreViewHolder(ItemGenreBinding.inflate(LayoutInflater.from(parent.context), parent, false)).apply {
+            itemView.setOnClickListener {
+                if (bindingAdapterPosition >= 0) {
+                    callback?.onClick(getItem(bindingAdapterPosition))
+                }
+            }
+        }
     }
 
     override fun onBindViewHolder(holder: GenreViewHolder, position: Int) {
@@ -37,5 +43,11 @@ class GenreListAdapter constructor(
 
     fun setData(list: List<Genre>) {
         submitList(list)
+    }
+
+    var callback: Callback? = null
+
+    interface Callback {
+        fun onClick(item: Genre)
     }
 }
