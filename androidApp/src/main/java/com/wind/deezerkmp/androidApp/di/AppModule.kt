@@ -1,6 +1,8 @@
 package com.wind.deezerkmp.androidApp.di
 
+import com.wind.deezerkmp.shared.viewmodel.GenreListViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 /**
@@ -8,5 +10,5 @@ import org.koin.dsl.module
  */
 @ExperimentalCoroutinesApi
 val appModule = module {
-
+    viewModel { GenreListViewModel() }
 }
