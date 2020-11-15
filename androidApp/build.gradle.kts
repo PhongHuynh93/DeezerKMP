@@ -13,6 +13,7 @@ repositories {
 }
 dependencies {
     implementation(project(":shared"))
+    implementation(project(":share"))
 
     // kotlin
     implementation(Libs.Kotlin.std)

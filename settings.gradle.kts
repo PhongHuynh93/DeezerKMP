@@ -18,4 +18,4 @@ rootProject.name = "DeezerKMP"
 
 include(":androidApp")
 include(":shared")
-
+include(":share")

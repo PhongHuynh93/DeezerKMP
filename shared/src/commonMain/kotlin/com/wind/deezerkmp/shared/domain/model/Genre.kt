@@ -8,7 +8,8 @@ import com.wind.deezerkmp.shared.base.Parcelize
  */
 @Parcelize
 data class Genre(
+    val id: String,
     val model: DeezerBaseModel,
 ) : Parcelable {
-    fun isValid() = model.isValid()
+    fun isValid() = model.isValid() && id.isNotEmpty()
 }

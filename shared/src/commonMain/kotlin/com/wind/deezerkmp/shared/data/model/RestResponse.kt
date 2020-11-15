@@ -11,7 +11,7 @@ data class RestResponse<out T>(
     @SerialName("data")
     val data: List<T> = emptyList(),
     @SerialName("next")
-    val next: String?,
+    val next: String? = null,
     @SerialName("total")
-    val total: Int?
+    val total: Int? = null
 )

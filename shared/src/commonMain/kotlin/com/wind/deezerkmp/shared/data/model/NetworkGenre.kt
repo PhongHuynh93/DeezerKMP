@@ -6,19 +6,19 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class NetworkGenre(
     @SerialName("id")
-    val id: String?,
+    val id: String? = null,
     @SerialName("name")
-    val name: String?,
+    val name: String? = null,
     @SerialName("picture")
-    val picture: String?,
+    val picture: String? = null,
     @SerialName("picture_big")
-    val pictureBig: String?,
+    val pictureBig: String? = null,
     @SerialName("picture_medium")
-    val pictureMedium: String?,
+    val pictureMedium: String? = null,
     @SerialName("picture_small")
-    val pictureSmall: String?,
+    val pictureSmall: String? = null,
     @SerialName("picture_xl")
-    val pictureXl: String?,
+    val pictureXl: String? = null,
     @SerialName("type")
-    val type: String?
+    val type: String? = null
 )

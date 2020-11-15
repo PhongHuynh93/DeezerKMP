@@ -10,14 +10,17 @@ import com.wind.deezerkmp.shared.domain.model.Genre
  */
 class GenreDataMapper : Mapper<NetworkGenre, Genre> {
     override fun map(input: NetworkGenre): Genre {
-        return Genre(DeezerBaseModel(
+        return Genre(
             id = input.id.orEmpty(),
-            name = input.name.orEmpty(),
-            picture = input.picture.orEmpty(),
-            pictureBig = input.pictureBig.orEmpty(),
-            pictureMedium = input.pictureMedium.orEmpty(),
-            pictureSmall = input.pictureSmall.orEmpty(),
-            pictureXl = input.pictureXl.orEmpty(),
-        ))
+            model =
+            DeezerBaseModel(
+                name = input.name.orEmpty(),
+                picture = input.picture.orEmpty(),
+                pictureBig = input.pictureBig.orEmpty(),
+                pictureMedium = input.pictureMedium.orEmpty(),
+                pictureSmall = input.pictureSmall.orEmpty(),
+                pictureXl = input.pictureXl.orEmpty(),
+            )
+        )
     }
 }

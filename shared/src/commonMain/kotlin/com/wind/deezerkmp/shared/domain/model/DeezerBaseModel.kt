@@ -8,7 +8,6 @@ import com.wind.deezerkmp.shared.base.Parcelize
  */
 @Parcelize
 data class DeezerBaseModel(
-    val id: String,
     val name: String,
     val picture: String,
     val pictureBig: String,
@@ -16,5 +15,5 @@ data class DeezerBaseModel(
     val pictureSmall: String,
     val pictureXl: String
 ) : Parcelable {
-    fun isValid() = id.isNotEmpty()
+    fun isValid() = true
 }
