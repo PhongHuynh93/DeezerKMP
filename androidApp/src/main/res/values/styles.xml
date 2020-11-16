@@ -9,6 +9,7 @@
         <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.MediumComponent</item>
         <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.LargeComponent</item>
         <item name="shapeAppearanceCircleComponent">@style/ShapeAppearance.CircleComponent</item>
+        <item name="shapeAppearanceSquareComponent">@style/ShapeAppearance.SquareComponent</item>
     </style>
 
     <style name="AppTheme" parent="BaseAppTheme">
@@ -35,5 +36,10 @@
     <style name="ShapeAppearance.CircleComponent" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="ShapeAppearance.SquareComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">0dp</item>
     </style>
 </resources>

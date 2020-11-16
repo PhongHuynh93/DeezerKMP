@@ -14,45 +14,31 @@
             type="com.wind.deezerkmp.shared.domain.model.Genre" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.Dark"
+        app:shapeAppearance="?attr/shapeAppearanceMediumComponent">
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:theme="@style/AppTheme.Dark"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearance="?attr/shapeAppearanceMediumComponent">
+        <widget.RatioImageView
+            android:id="@+id/imgv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:foreground="@color/overlay"
+            android:scaleType="centerCrop"
+            app:image="@{item.model.pictureMedium}"
+            app:requestManager="@{rm}"
+            app:riv_dimensionRatio="2:1"
+            tools:src="@tools:sample/avatars" />
 
-            <ImageView
-                android:id="@+id/imgv"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                app:image="@{item.model.pictureMedium}"
-                app:requestManager="@{rm}"
-                tools:src="@tools:sample/avatars" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/overlay" />
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="@{item.model.name}"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                tools:text="@tools:sample/cities" />
-        </com.google.android.material.card.MaterialCardView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@{item.model.name}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            tools:text="@tools:sample/cities" />
+    </com.google.android.material.card.MaterialCardView>
 </layout>

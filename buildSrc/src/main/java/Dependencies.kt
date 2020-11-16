@@ -5,7 +5,7 @@ object Versions {
     const val glide: String = "4.10.0"
     const val supportLibrary: String = "1.1.0"
     const val material: String = "1.2.1"
-    const val constraintLayout: String = "2.0.0"
+    const val constraintLayout: String = "2.0.4"
     const val room: String = "2.2.2"
     const val ktor = "1.4.0"
     const val kotlinxSerialization = "1.0.0-RC"

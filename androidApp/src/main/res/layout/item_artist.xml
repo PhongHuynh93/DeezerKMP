@@ -14,30 +14,21 @@
             type="com.wind.deezerkmp.shared.domain.model.Artist" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/materialCardView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearance="?attr/shapeAppearanceCircleComponent">
-
-            <ImageView
-                android:id="@+id/imgv"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                app:image="@{item.model.pictureMedium}"
-                app:requestManager="@{rm}"
-                tools:src="@tools:sample/avatars" />
-        </com.google.android.material.card.MaterialCardView>
+        <widget.RatioImageView
+            android:id="@+id/imgv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            app:riv_dimensionRatio="1:1"
+            app:image="@{item.model.pictureMedium}"
+            app:requestManager="@{rm}"
+            tools:src="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/textView"
@@ -52,5 +43,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/materialCardView"
             tools:text="@tools:sample/full_names" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </layout>
