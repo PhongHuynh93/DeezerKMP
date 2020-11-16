@@ -13,8 +13,8 @@ import com.wind.deezerkmp.shared.domain.model.Artist
  * Created by Phong Huynh on 11/15/2020
  */
 class ArtistListAdapter constructor(
-        private val context: Context,
-        private val requestManager: RequestManager
+    private val context: Context,
+    private val requestManager: RequestManager
 ) : ListAdapter<Artist, ArtistViewHolder>(object : DiffUtil
 .ItemCallback<Artist>() {
     override fun areItemsTheSame(oldItem: Artist, newItem: Artist): Boolean {
@@ -26,8 +26,18 @@ class ArtistListAdapter constructor(
     }
 }) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtistViewHolder {
-        return ArtistViewHolder(ItemArtistBinding.inflate(LayoutInflater.from(parent.context),
-                parent, false))
+        return ArtistViewHolder(
+            ItemArtistBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent, false
+            )
+        ).apply {
+            itemView.setOnClickListener {
+                if (bindingAdapterPosition >= 0) {
+                    callback?.onClick(getItem(bindingAdapterPosition))
+                }
+            }
+        }
     }
 
     override fun onBindViewHolder(holder: ArtistViewHolder, position: Int) {
@@ -38,5 +48,11 @@ class ArtistListAdapter constructor(
 
     fun setData(list: List<Artist>) {
         submitList(list)
+    }
+
+    var callback: Callback? = null
+
+    interface Callback {
+        fun onClick(item: Artist)
     }
 }

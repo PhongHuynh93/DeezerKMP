@@ -3,4 +3,9 @@
     <declare-styleable name="RatioImageView">
         <attr name="riv_dimensionRatio" format="string"/>
     </declare-styleable>
+
+    <declare-styleable name="ForegroundView">
+        <attr name="android:foreground"/>
+    </declare-styleable>
+
 </resources>
