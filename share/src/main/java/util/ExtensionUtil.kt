@@ -337,12 +337,12 @@ fun FragmentActivity.replaceFragment(
     isAddBackStack: Boolean = true, useAnim: Boolean = true
 ) {
     supportFragmentManager.commit(true) {
+        if (useAnim) {
+            useAnim()
+        }
         replace(frameId, fragment, tag)
         if (isAddBackStack) {
             addToBackStack(tag)
-        }
-        if (useAnim) {
-            useAnim()
         }
     }
 }
@@ -384,12 +384,12 @@ fun Fragment.replaceFragment(
     useAnim: Boolean = true
 ) {
     childFragmentManager.commit(true) {
+        if (useAnim) {
+            useAnim()
+        }
         replace(frameId, fragment, tag)
         if (isAddBackStack) {
             addToBackStack(null)
-        }
-        if (useAnim) {
-            useAnim()
         }
     }
 }
