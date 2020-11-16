@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity(R.layout.fragment) {
         super.onCreate(savedInstanceState)
         fullScreen()
         lightStatusBar(resources.getBoolean(R.bool.use_light_system_bars))
+        lightNavigationBar(resources.getBoolean(R.bool.use_light_system_bars))
         addFragment(R.id.root, MainFragment.newInstance())
         vmNav.goToArtistListByGenre.observe(this, EventObserver {
             replaceFragment(R.id.root, ArtistListFragment.newInstance(it))

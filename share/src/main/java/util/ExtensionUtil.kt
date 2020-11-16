@@ -22,6 +22,8 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.AttrRes
+import androidx.annotation.ColorInt
+import androidx.annotation.ColorRes
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -46,8 +48,8 @@ fun RecyclerView.init(
     adapter = adapterCustom
 }
 
-fun Fragment.getColorEx(colorId: Int): Int {
-    return ContextCompat.getColor(context!!, colorId)
+fun Fragment.getColorEx(@ColorRes colorRes: Int): Int {
+    return ContextCompat.getColor(requireContext(), colorRes)
 }
 
 fun Fragment.getDimen(dimenRes: Int): Float {
@@ -536,6 +538,18 @@ fun Activity.lightStatusBar(lightStatusBar: Boolean) {
         }
         window.decorView.systemUiVisibility = flags
     }
+}
+
+fun Fragment.lightStatusBar(lightStatusBar: Boolean) {
+    requireActivity().lightStatusBar(lightStatusBar)
+}
+
+fun Activity.statusBarColor(): Int {
+    return window.statusBarColor
+}
+
+fun Activity.statusBarColor(@ColorInt color: Int) {
+    window.statusBarColor = color
 }
 
 fun Activity.lightNavigationBar(lightStatusBar: Boolean) {

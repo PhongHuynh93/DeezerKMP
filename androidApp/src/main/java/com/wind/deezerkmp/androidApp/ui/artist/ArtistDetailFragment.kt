@@ -1,5 +1,6 @@
 package com.wind.deezerkmp.androidApp.ui.artist
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,9 @@ import com.wind.deezerkmp.androidApp.R
 import com.wind.deezerkmp.androidApp.databinding.FragmentArtistDetailBinding
 import com.wind.deezerkmp.androidApp.ui.adapter.ArtistDetailAdapter
 import com.wind.deezerkmp.shared.domain.model.Artist
+import util.getColorEx
+import util.lightStatusBar
+import util.statusBarColor
 
 /**
  * Created by Phong Huynh on 11/4/2020
@@ -27,9 +31,24 @@ class ArtistDetailFragment : Fragment() {
             }
         }
     }
+
+    private var statusBarColor: Int = 0
     private lateinit var artist: Artist
 
     private lateinit var viewBinding: FragmentArtistDetailBinding
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        statusBarColor = requireActivity().statusBarColor()
+        requireActivity().statusBarColor(getColorEx(R.color.transparent))
+        lightStatusBar(false)
+    }
+
+    override fun onDetach() {
+        requireActivity().statusBarColor(statusBarColor)
+        lightStatusBar(resources.getBoolean(R.bool.use_light_system_bars))
+        super.onDetach()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
