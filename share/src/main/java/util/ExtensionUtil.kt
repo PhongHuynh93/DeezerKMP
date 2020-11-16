@@ -32,7 +32,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wind.collagePhotoMaker.share.R
 import kotlinx.coroutines.suspendCancellableCoroutine
-import util.inTransaction
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.coroutines.resume
@@ -303,7 +302,10 @@ fun FragmentActivity.getHeight(): Int {
 /**
  * https://medium.com/thoughts-overflow/how-to-add-a-fragment-in-kotlin-way-73203c5a450b
  */
-inline fun FragmentManager.inTransaction(useAnim: Boolean = false, func: FragmentTransaction.() -> Unit) {
+inline fun FragmentManager.inTransaction(
+    useAnim: Boolean = false,
+    func: FragmentTransaction.() -> Unit
+) {
     beginTransaction().apply {
         if (useAnim) {
             useAnim()
@@ -374,7 +376,13 @@ fun Fragment.addFragment(id: Int, fragment: Fragment, tag: String? = null) {
     }
 }
 
-fun Fragment.replaceFragment(frameId: Int, fragment: Fragment, tag: String? = null, isAddBackStack: Boolean = true, useAnim: Boolean = true) {
+fun Fragment.replaceFragment(
+    frameId: Int,
+    fragment: Fragment,
+    tag: String? = null,
+    isAddBackStack: Boolean = true,
+    useAnim: Boolean = true
+) {
     childFragmentManager.commit(true) {
         replace(frameId, fragment, tag)
         if (isAddBackStack) {
@@ -514,6 +522,35 @@ fun Activity.fullScreen() {
             View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 }
 
+/**
+ * https://stackoverflow.com/questions/37672833/android-m-light-and-dark-status-bar-programmatically-how-to-make-it-dark-again
+ */
+fun Activity.lightStatusBar(lightStatusBar: Boolean) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        val oldFlags = window.decorView.systemUiVisibility
+        var flags = oldFlags
+        flags = if (lightStatusBar) {
+            flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        } else {
+            flags and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
+        }
+        window.decorView.systemUiVisibility = flags
+    }
+}
+
+fun Activity.lightNavigationBar(lightStatusBar: Boolean) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        val oldFlags = window.decorView.systemUiVisibility
+        var flags = oldFlags
+        flags = if (lightStatusBar) {
+            flags or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+        } else {
+            flags and View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR.inv()
+        }
+        window.decorView.systemUiVisibility = flags
+    }
+}
+
 // window inset
 fun View.doOnApplyWindowInsets(f: (View, WindowInsets, InitialPadding) -> Unit) {
     // Create a snapshot of the view's padding state
@@ -529,11 +566,14 @@ fun View.doOnApplyWindowInsets(f: (View, WindowInsets, InitialPadding) -> Unit) 
     requestApplyInsetsWhenAttached()
 }
 
-data class InitialPadding(val left: Int, val top: Int,
-                          val right: Int, val bottom: Int)
+data class InitialPadding(
+    val left: Int, val top: Int,
+    val right: Int, val bottom: Int
+)
 
 private fun recordInitialPaddingForView(view: View) = InitialPadding(
-    view.paddingLeft, view.paddingTop, view.paddingRight, view.paddingBottom)
+    view.paddingLeft, view.paddingTop, view.paddingRight, view.paddingBottom
+)
 
 fun View.requestApplyInsetsWhenAttached() {
     if (isAttachedToWindow) {

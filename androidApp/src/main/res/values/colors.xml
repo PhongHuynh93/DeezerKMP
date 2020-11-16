@@ -4,4 +4,9 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="overlay">#66000000</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="scrim_dark">#B3000000</color>
+    <color name="status_bar_scrim">@color/scrim_dark</color>
+    <color name="nav_bar_scrim">@color/scrim_dark</color>
 </resources>
