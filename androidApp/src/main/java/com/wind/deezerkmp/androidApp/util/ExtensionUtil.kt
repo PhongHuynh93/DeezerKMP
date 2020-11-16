@@ -16,6 +16,8 @@ val Context.spaceNormal
     get() = getDimen(R.dimen.space_normal).toInt()
 val Context.spaceSmall
     get() = getDimen(R.dimen.space_small).toInt()
+val Context.spaceLarge
+    get() = getDimen(R.dimen.space_large).toInt()
 
 @BindingAdapter(
     "paddingLeftSystemWindowInsets",

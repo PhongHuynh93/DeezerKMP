@@ -5,6 +5,7 @@ import com.bumptech.glide.Glide
 import com.wind.deezerkmp.androidApp.ui.adapter.AlbumListAdapter
 import com.wind.deezerkmp.androidApp.ui.adapter.ArtistListAdapter
 import com.wind.deezerkmp.androidApp.ui.adapter.GenreListAdapter
+import com.wind.deezerkmp.androidApp.ui.adapter.TitleHeaderAdapter
 import com.wind.deezerkmp.shared.viewmodel.AlbumListViewModel
 import com.wind.deezerkmp.shared.viewmodel.ArtistListViewModel
 import com.wind.deezerkmp.shared.viewmodel.GenreListViewModel
@@ -28,6 +29,9 @@ val appModule = module {
     factory { (frag: Fragment) ->
         val applicationContext = frag.requireContext().applicationContext
         AlbumListAdapter(applicationContext, Glide.with(frag))
+    }
+    factory { (_: Fragment) ->
+        TitleHeaderAdapter()
     }
     viewModel { GenreListViewModel() }
     viewModel { ArtistListViewModel() }
