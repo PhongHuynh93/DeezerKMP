@@ -10,4 +10,14 @@
     <dimen name="large_radius">20dp</dimen>
     <dimen name="space_pretty_small">12dp</dimen>
     <dimen name="icon_size_default">20dp</dimen>
+
+    <dimen name="space_header_top">20dp</dimen>
+    <dimen name="space_header_top_small">12dp</dimen>
+    <dimen name="space_header_bottom">2dp</dimen>
+    <dimen name="space_horizontal_text_to_thumb">11dp</dimen>
+    <dimen name="space_vertical_text_to_thumb_card">10dp</dimen>
+    <dimen name="space_vertical_text_to_thumb_big">12dp</dimen>
+    <dimen name="space_vertical_text_to_text_card">4dp</dimen>
+    <dimen name="space_vertical_text_to_text">2dp</dimen>
+    <dimen name="space_vertical_text_to_text_big">4dp</dimen>
 </resources>

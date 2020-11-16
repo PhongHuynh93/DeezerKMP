@@ -22,7 +22,6 @@ import org.koin.core.inject
 /**
  * Created by Phong Huynh on 11/15/2020
  */
-@ExperimentalCoroutinesApi
 class ArtistListViewModel : BaseViewModel(), KoinComponent {
     private val getArtistListByGenreUseCase: GetArtistListByGenreUseCase by inject()
 
