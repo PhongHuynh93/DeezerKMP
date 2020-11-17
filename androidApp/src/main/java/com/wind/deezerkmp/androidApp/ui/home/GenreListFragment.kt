@@ -33,6 +33,7 @@ import util.show
 /**
  * Created by Phong Huynh on 11/15/2020
  */
+data class GenreTitleModel(val id: String, val title: String)
 class GenreListFragment: Fragment() {
     companion object {
         fun newInstance(): GenreListFragment {
@@ -57,7 +58,7 @@ class GenreListFragment: Fragment() {
         genreListViewModel.start()
         genreListAdapter.callback = object : GenreListAdapter.Callback {
             override fun onClick(item: Genre) {
-                vmNav.goToArtistListByGenre.value = Event(item.id)
+                vmNav.goToArtistListByGenre.value = Event(GenreTitleModel(item.id, item.model.name))
             }
         }
     }

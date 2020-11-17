@@ -2,6 +2,7 @@ package com.wind.deezerkmp.androidApp.util
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.wind.deezerkmp.androidApp.ui.home.GenreTitleModel
 import com.wind.deezerkmp.shared.domain.model.Album
 import com.wind.deezerkmp.shared.domain.model.Artist
 import util.Event
@@ -16,7 +17,7 @@ class NavViewModel : ViewModel() {
     val goToArtistDetail:  MutableLiveData<Event<Artist>> by lazy {
         MutableLiveData<Event<Artist>>()
     }
-    val goToArtistListByGenre: MutableLiveData<Event<String>> by lazy {
-        MutableLiveData<Event<String>>()
+    val goToArtistListByGenre: MutableLiveData<Event<GenreTitleModel>> by lazy {
+        MutableLiveData<Event<GenreTitleModel>>()
     }
 }
