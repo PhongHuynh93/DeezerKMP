@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageView"
             android:layout_width="@dimen/album_item_size"
             android:layout_height="@dimen/album_item_size"
@@ -54,6 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="@dimen/space_vertical_text_to_text"
+            tools:visibility="gone"
             android:ellipsize="end"
             android:maxLines="1"
             app:layout_constrainedWidth="true"

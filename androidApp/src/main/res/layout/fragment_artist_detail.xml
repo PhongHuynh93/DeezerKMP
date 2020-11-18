@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -12,8 +14,8 @@
             type="com.wind.deezerkmp.shared.domain.model.Artist" />
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?android:attr/colorBackground">
@@ -23,26 +25,82 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <!--            fixme change the contentScrim to color pallete-->
             <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsingToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:contentScrim="?attr/colorAccent"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                app:collapsedTitleTextAppearance="@style/ArtistDetail.Title.Collapsed"
+                app:expandedTitleMarginBottom="@dimen/artist_detail_title_margin_bottom"
+                app:expandedTitleMarginStart="@dimen/space_normal"
+                app:expandedTitleTextAppearance="@style/ArtistDetail.Title.Expanded"
+                app:maxLines="2"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:title="@{item.model.name}">
 
                 <widget.RatioImageView
+                    android:id="@+id/artistImageView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="?attr/colorAccent"
-                    app:shapeAppearance="?attr/shapeAppearanceSquareComponent"
-                    app:image="@{item.model.pictureBig}"
+                    android:foreground="@drawable/overlay_gradient"
                     app:layout_collapseMode="parallax"
-                    app:requestManager="@{rm}"
-                    app:riv_dimensionRatio="1:1" />
+                    app:riv_dimensionRatio="1:1"
+                    app:shapeAppearance="?attr/shapeAppearanceSquareComponent" />
 
+<!--                fixme calculate the margin bottom -->
                 <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolBar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
+                    android:layout_marginBottom="60dp"
+                    app:contentInsetStart="0dp"
                     app:layout_collapseMode="pin" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_margin="@dimen/space_above_normal"
+                    android:orientation="horizontal">
+
+<!--                    fixme background tint - make a selector color-->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnLike"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:minHeight="36dp"
+                        android:paddingTop="0dp"
+                        android:paddingBottom="0dp"
+                        android:text="@string/follow"
+                        android:textColor="@color/primary_white"
+                        android:textSize="13sp"
+                        android:backgroundTint="@color/black_20"
+                        app:shapeAppearance="?attr/shapeAppearanceLargeComponent"
+                        app:strokeColor="@color/primary_white"
+                        app:strokeWidth="0.5dp"
+                        />
+
+                    <Space
+                        android:layout_width="@dimen/space_normal"
+                        android:layout_height="wrap_content" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnPlay"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:minHeight="36dp"
+                        android:text="@string/play"
+                        android:textSize="13sp"
+                        app:shapeAppearance="?attr/shapeAppearanceLargeComponent" />
+                </LinearLayout>
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -50,7 +108,10 @@
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:tabMode="scrollable"/>
+                app:tabIndicatorFullWidth="false"
+                app:tabTextColor="@color/selector_tab_indicator_text"
+                app:tabTextAppearance="@style/TabTextStyle"
+                app:tabMode="fixed" />
 
         </com.google.android.material.appbar.AppBarLayout>
 

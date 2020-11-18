@@ -26,6 +26,7 @@ object Libs {
         const val lifeCycle = "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
         const val liveData = "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
         const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+        const val palette = "androidx.palette:palette-ktx:1.0.0"
     }
     object Kotlin {
         const val std = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"

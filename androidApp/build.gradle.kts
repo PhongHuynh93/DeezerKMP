@@ -29,6 +29,7 @@ dependencies {
     implementation(Libs.Android.lifeCycle)
     implementation(Libs.Android.liveData)
     implementation(Libs.Android.viewModel)
+    implementation(Libs.Android.palette)
 
     // injection
     implementation(Libs.Injection.core)

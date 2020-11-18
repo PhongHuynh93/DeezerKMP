@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimary">#FF5722</color>
     <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="colorAccent">#FF5722</color>
     <color name="overlay">#66000000</color>
 
     <color name="transparent">#00000000</color>
     <color name="scrim_dark">#000000</color>
     <color name="status_bar_scrim">@color/scrim_dark</color>
     <color name="nav_bar_scrim">@color/scrim_dark</color>
+
+    <color name="primary_white">#ffffff</color>
+    <color name="black_20">#33000000</color>
 </resources>

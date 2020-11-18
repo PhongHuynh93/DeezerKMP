@@ -3,4 +3,6 @@
     <string name="album_title">Album</string>
     <string name="genre_title">Genre</string>
     <string name="genre_artist_title">Popular %s artists</string>
+    <string name="follow">Follow</string>
+    <string name="play">Play</string>
 </resources>

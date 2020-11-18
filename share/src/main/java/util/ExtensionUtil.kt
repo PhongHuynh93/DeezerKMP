@@ -421,7 +421,7 @@ fun Fragment.findFragmentByTag(tag: String?): Fragment? {
     return childFragmentManager.findFragmentByTag(tag)
 }
 
-fun Fragment.setUpToolbar(toolbar: Toolbar, title: String? = null, showUpIcon: Boolean = false) {
+fun Fragment.setUpToolbar(toolbar: Toolbar, title: String? = null, showUpIcon: Boolean = true, toolbarColorInt: Int? = null) {
     if (activity is AppCompatActivity) {
         val appActivity = activity as AppCompatActivity
         appActivity.setSupportActionBar(toolbar)
@@ -434,7 +434,9 @@ fun Fragment.setUpToolbar(toolbar: Toolbar, title: String? = null, showUpIcon: B
             }
         }
         if (showUpIcon) {
-            toolbar.navigationIcon?.tint(context!!.getColorAttr(R.attr.colorAccent))
+            toolbarColorInt?.let {
+                toolbar.navigationIcon?.tint(it)
+            }
             toolbar.setNavigationOnClickListener {
                 appActivity.onBackPressed()
             }

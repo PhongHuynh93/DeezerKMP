@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.wind.deezerkmp.androidApp.databinding.ListBinding
 import com.wind.deezerkmp.androidApp.ui.adapter.AlbumListAdapter
 import com.wind.deezerkmp.androidApp.util.NavViewModel
+import com.wind.deezerkmp.androidApp.util.spaceNormal
 import com.wind.deezerkmp.shared.domain.model.Album
 import com.wind.deezerkmp.shared.viewmodel.AlbumListViewModel
 import kotlinx.coroutines.flow.collect
@@ -21,6 +22,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import util.Event
 import util.gone
+import util.recyclerview.GridItemDecoration
 import util.show
 
 /**
@@ -69,7 +71,7 @@ class AlbumListFragment : Fragment() {
             adapter = albumListAdapter
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
-//            addItemDecoration(GridItemDecoration(requireContext().spaceNormal, true, 1))
+            addItemDecoration(GridItemDecoration(requireContext().spaceNormal, true, 1))
         }
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             albumListViewModel.data.onEach { list ->
