@@ -1,10 +1,17 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="BaseAppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+
+        <item name="android:navigationBarColor">@color/nav_bar_scrim</item>
+        <item name="android:statusBarColor">@color/status_bar_scrim</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="23">@bool/use_light_system_bars</item>
+
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.SmallComponent</item>
         <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.MediumComponent</item>
         <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.LargeComponent</item>
@@ -30,7 +37,7 @@
 
     <style name="ShapeAppearance.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">16dp</item>
+        <item name="cornerSize">100dp</item>
     </style>
 
     <style name="ShapeAppearance.CircleComponent" parent="">
@@ -41,5 +48,18 @@
     <style name="ShapeAppearance.SquareComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">0dp</item>
+    </style>
+
+    <style name="ArtistDetail.Title.Expanded" parent="TextAppearance.MaterialComponents.Headline3">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="ArtistDetail.Title.Collapsed" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="TabTextStyle" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
     </style>
 </resources>

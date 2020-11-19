@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.bumptech.glide.RequestManager
 import com.wind.deezerkmp.androidApp.databinding.ItemGenreBinding
+import com.wind.deezerkmp.androidApp.ui.TYPE_GENRE
 import com.wind.deezerkmp.shared.domain.model.Genre
 
 /**
@@ -25,6 +26,10 @@ class GenreListAdapter constructor(
         return oldItem == newItem
     }
 }) {
+    override fun getItemViewType(position: Int): Int {
+        return TYPE_GENRE
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GenreViewHolder {
         return GenreViewHolder(ItemGenreBinding.inflate(LayoutInflater.from(parent.context), parent, false)).apply {
             itemView.setOnClickListener {

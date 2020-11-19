@@ -8,9 +8,13 @@ import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.GridLayoutManager
+import com.wind.deezerkmp.androidApp.R
 import com.wind.deezerkmp.androidApp.databinding.ListBinding
+import com.wind.deezerkmp.androidApp.ui.TYPE_HEADER
 import com.wind.deezerkmp.androidApp.ui.adapter.GenreListAdapter
+import com.wind.deezerkmp.androidApp.ui.adapter.TitleHeaderAdapter
 import com.wind.deezerkmp.androidApp.util.NavViewModel
 import com.wind.deezerkmp.androidApp.util.spaceNormal
 import com.wind.deezerkmp.shared.domain.model.Genre
@@ -20,6 +24,7 @@ import kotlinx.coroutines.flow.onEach
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
+import timber.log.Timber
 import util.Event
 import util.gone
 import util.recyclerview.GridItemDecoration
@@ -28,6 +33,7 @@ import util.show
 /**
  * Created by Phong Huynh on 11/15/2020
  */
+data class GenreTitleModel(val id: String, val title: String)
 class GenreListFragment: Fragment() {
     companion object {
         fun newInstance(): GenreListFragment {
@@ -36,6 +42,13 @@ class GenreListFragment: Fragment() {
     }
 
     private val genreListAdapter: GenreListAdapter by inject { parametersOf(this) }
+    private val titleHeaderAdapter: TitleHeaderAdapter by inject { parametersOf(this) }
+    private val concatAdapter: ConcatAdapter by lazy {
+        val config = ConcatAdapter.Config.Builder().setIsolateViewTypes(false).build()
+        val adapter = ConcatAdapter(config, titleHeaderAdapter, genreListAdapter)
+        titleHeaderAdapter.submitList(listOf(getString(R.string.genre_title)))
+        adapter
+    }
     private lateinit var viewBinding: ListBinding
     private val genreListViewModel by viewModel<GenreListViewModel>()
     private val vmNav by activityViewModels<NavViewModel>()
@@ -45,7 +58,7 @@ class GenreListFragment: Fragment() {
         genreListViewModel.start()
         genreListAdapter.callback = object : GenreListAdapter.Callback {
             override fun onClick(item: Genre) {
-                vmNav.goToArtistListByGenre.value = Event(item.id)
+                vmNav.goToArtistListByGenre.value = Event(GenreTitleModel(item.id, item.model.name))
             }
         }
     }
@@ -63,11 +76,22 @@ class GenreListFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewBinding.rcv.apply {
-            adapter = genreListAdapter
+            adapter = concatAdapter
             val spanCount = 2
-            layoutManager = GridLayoutManager(requireContext(), spanCount)
+            layoutManager = GridLayoutManager(requireContext(), spanCount).apply {
+                spanSizeLookup = object: GridLayoutManager.SpanSizeLookup() {
+                    override fun getSpanSize(position: Int): Int {
+                        Timber.e("itemviewtype ${concatAdapter.getItemViewType(position)}")
+                        return if (concatAdapter.getItemViewType(position) == TYPE_HEADER) {
+                            2
+                        } else {
+                            1
+                        }
+                    }
+                }
+            }
             setHasFixedSize(true)
-            addItemDecoration(GridItemDecoration(requireContext().spaceNormal, true, spanCount))
+            addItemDecoration(HomeItemDecoration(requireContext(), requireContext().spaceNormal, true, spanCount))
         }
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             genreListViewModel.data.onEach { list ->

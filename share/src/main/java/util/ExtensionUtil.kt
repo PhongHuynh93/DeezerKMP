@@ -22,6 +22,8 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.AttrRes
+import androidx.annotation.ColorInt
+import androidx.annotation.ColorRes
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -32,7 +34,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wind.collagePhotoMaker.share.R
 import kotlinx.coroutines.suspendCancellableCoroutine
-import util.inTransaction
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.coroutines.resume
@@ -47,8 +48,8 @@ fun RecyclerView.init(
     adapter = adapterCustom
 }
 
-fun Fragment.getColorEx(colorId: Int): Int {
-    return ContextCompat.getColor(context!!, colorId)
+fun Fragment.getColorEx(@ColorRes colorRes: Int): Int {
+    return ContextCompat.getColor(requireContext(), colorRes)
 }
 
 fun Fragment.getDimen(dimenRes: Int): Float {
@@ -303,7 +304,10 @@ fun FragmentActivity.getHeight(): Int {
 /**
  * https://medium.com/thoughts-overflow/how-to-add-a-fragment-in-kotlin-way-73203c5a450b
  */
-inline fun FragmentManager.inTransaction(useAnim: Boolean = false, func: FragmentTransaction.() -> Unit) {
+inline fun FragmentManager.inTransaction(
+    useAnim: Boolean = false,
+    func: FragmentTransaction.() -> Unit
+) {
     beginTransaction().apply {
         if (useAnim) {
             useAnim()
@@ -315,10 +319,10 @@ inline fun FragmentManager.inTransaction(useAnim: Boolean = false, func: Fragmen
 
 fun FragmentTransaction.useAnim() {
     setCustomAnimations(
-        R.anim.slide_in_right,
-        R.anim.slide_out_left,
-        R.anim.slide_in_left,
-        R.anim.slide_out_right
+        R.anim.slide_in,
+        R.anim.fade_out,
+        R.anim.fade_in,
+        R.anim.slide_out
     )
 }
 
@@ -335,12 +339,12 @@ fun FragmentActivity.replaceFragment(
     isAddBackStack: Boolean = true, useAnim: Boolean = true
 ) {
     supportFragmentManager.commit(true) {
+        if (useAnim) {
+            useAnim()
+        }
         replace(frameId, fragment, tag)
         if (isAddBackStack) {
             addToBackStack(tag)
-        }
-        if (useAnim) {
-            useAnim()
         }
     }
 }
@@ -374,14 +378,20 @@ fun Fragment.addFragment(id: Int, fragment: Fragment, tag: String? = null) {
     }
 }
 
-fun Fragment.replaceFragment(frameId: Int, fragment: Fragment, tag: String? = null, isAddBackStack: Boolean = true, useAnim: Boolean = true) {
+fun Fragment.replaceFragment(
+    frameId: Int,
+    fragment: Fragment,
+    tag: String? = null,
+    isAddBackStack: Boolean = true,
+    useAnim: Boolean = true
+) {
     childFragmentManager.commit(true) {
+        if (useAnim) {
+            useAnim()
+        }
         replace(frameId, fragment, tag)
         if (isAddBackStack) {
             addToBackStack(null)
-        }
-        if (useAnim) {
-            useAnim()
         }
     }
 }
@@ -411,7 +421,7 @@ fun Fragment.findFragmentByTag(tag: String?): Fragment? {
     return childFragmentManager.findFragmentByTag(tag)
 }
 
-fun Fragment.setUpToolbar(toolbar: Toolbar, title: String? = null, showUpIcon: Boolean = false) {
+fun Fragment.setUpToolbar(toolbar: Toolbar, title: String? = null, showUpIcon: Boolean = true, toolbarColorInt: Int? = null) {
     if (activity is AppCompatActivity) {
         val appActivity = activity as AppCompatActivity
         appActivity.setSupportActionBar(toolbar)
@@ -424,7 +434,9 @@ fun Fragment.setUpToolbar(toolbar: Toolbar, title: String? = null, showUpIcon: B
             }
         }
         if (showUpIcon) {
-            toolbar.navigationIcon?.tint(context!!.getColorAttr(R.attr.colorAccent))
+            toolbarColorInt?.let {
+                toolbar.navigationIcon?.tint(it)
+            }
             toolbar.setNavigationOnClickListener {
                 appActivity.onBackPressed()
             }
@@ -514,6 +526,47 @@ fun Activity.fullScreen() {
             View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 }
 
+/**
+ * https://stackoverflow.com/questions/37672833/android-m-light-and-dark-status-bar-programmatically-how-to-make-it-dark-again
+ */
+fun Activity.lightStatusBar(lightStatusBar: Boolean) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        val oldFlags = window.decorView.systemUiVisibility
+        var flags = oldFlags
+        flags = if (lightStatusBar) {
+            flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        } else {
+            flags and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
+        }
+        window.decorView.systemUiVisibility = flags
+    }
+}
+
+fun Fragment.lightStatusBar(lightStatusBar: Boolean) {
+    requireActivity().lightStatusBar(lightStatusBar)
+}
+
+fun Activity.statusBarColor(): Int {
+    return window.statusBarColor
+}
+
+fun Activity.statusBarColor(@ColorInt color: Int) {
+    window.statusBarColor = color
+}
+
+fun Activity.lightNavigationBar(lightStatusBar: Boolean) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        val oldFlags = window.decorView.systemUiVisibility
+        var flags = oldFlags
+        flags = if (lightStatusBar) {
+            flags or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+        } else {
+            flags and View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR.inv()
+        }
+        window.decorView.systemUiVisibility = flags
+    }
+}
+
 // window inset
 fun View.doOnApplyWindowInsets(f: (View, WindowInsets, InitialPadding) -> Unit) {
     // Create a snapshot of the view's padding state
@@ -529,11 +582,14 @@ fun View.doOnApplyWindowInsets(f: (View, WindowInsets, InitialPadding) -> Unit) 
     requestApplyInsetsWhenAttached()
 }
 
-data class InitialPadding(val left: Int, val top: Int,
-                          val right: Int, val bottom: Int)
+data class InitialPadding(
+    val left: Int, val top: Int,
+    val right: Int, val bottom: Int
+)
 
 private fun recordInitialPaddingForView(view: View) = InitialPadding(
-    view.paddingLeft, view.paddingTop, view.paddingRight, view.paddingBottom)
+    view.paddingLeft, view.paddingTop, view.paddingRight, view.paddingBottom
+)
 
 fun View.requestApplyInsetsWhenAttached() {
     if (isAttachedToWindow) {

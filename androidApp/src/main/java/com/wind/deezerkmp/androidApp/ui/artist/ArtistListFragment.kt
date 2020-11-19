@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import com.wind.deezerkmp.androidApp.R
+import com.wind.deezerkmp.androidApp.databinding.FragmentListBinding
 import com.wind.deezerkmp.androidApp.databinding.ListBinding
 import com.wind.deezerkmp.androidApp.ui.adapter.ArtistListAdapter
 import com.wind.deezerkmp.androidApp.util.NavViewModel
@@ -23,24 +25,27 @@ import org.koin.core.parameter.parametersOf
 import util.Event
 import util.gone
 import util.recyclerview.GridItemDecoration
+import util.setUpToolbar
 import util.show
 
 /**
  * Created by Phong Huynh on 11/4/2020
  */
 private const val EXTRA_ID = "xId"
+private const val EXTRA_GENRE_TITLE = "xGenreTitle"
 class ArtistListFragment: Fragment() {
     companion object {
-        fun newInstance(id: String): ArtistListFragment {
+        fun newInstance(id: String, genreTitle: String): ArtistListFragment {
             return ArtistListFragment().apply {
-                arguments = bundleOf(EXTRA_ID to id)
+                arguments = bundleOf(EXTRA_ID to id, EXTRA_GENRE_TITLE to genreTitle)
             }
         }
     }
 
+    private lateinit var genreTitle: String
     private val artistListAdapter: ArtistListAdapter by inject { parametersOf(this) }
 
-    private lateinit var viewBinding: ListBinding
+    private lateinit var viewBinding: FragmentListBinding
     private val artistListViewModel by viewModel<ArtistListViewModel>()
     private val navViewModel by activityViewModels<NavViewModel>()
 
@@ -52,13 +57,14 @@ class ArtistListFragment: Fragment() {
                 navViewModel.goToArtistDetail.value = Event(item)
             }
         }
+        genreTitle = requireArguments().getString(EXTRA_GENRE_TITLE)!!
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewBinding = ListBinding.inflate(inflater, container, false).apply {
+        viewBinding = FragmentListBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
         }
         return viewBinding.root
@@ -66,6 +72,7 @@ class ArtistListFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUpToolbar(viewBinding.toolBar, getString(R.string.genre_artist_title, genreTitle), true)
         viewBinding.rcv.apply {
             adapter = artistListAdapter
             val spanCount = 2

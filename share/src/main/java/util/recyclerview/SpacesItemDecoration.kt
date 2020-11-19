@@ -21,7 +21,7 @@ class SpacesItemDecoration(private val space: Int) : RecyclerView.ItemDecoration
     }
 }
 
-class GridItemDecoration(
+open class GridItemDecoration(
     private val space: Int,
     private val includeEdge: Boolean,
     private val spanCount: Int
