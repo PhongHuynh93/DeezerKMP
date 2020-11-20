@@ -10,7 +10,7 @@
 
         <variable
             name="item"
-            type="com.wind.deezerkmp.shared.domain.model.Album" />
+            type="com.wind.deezerkmp.shared.domain.model.Track" />
     </data>
 
 
@@ -56,7 +56,7 @@
             android:layout_marginTop="@dimen/space_vertical_text_to_text"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="@{item.releaseDate}"
+            android:text="@{String.valueOf(item.duration)}"
             app:layout_constrainedWidth="true"
             app:layout_constraintBottom_toBottomOf="@+id/imageView"
             app:layout_constraintEnd_toEndOf="parent"

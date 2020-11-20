@@ -19,6 +19,7 @@ interface Repository {
     suspend fun getArtistRelatedList(id: String): RestResponse<Any>
     suspend fun getArtistRadioList(id: String): RestResponse<Any>
     suspend fun getArtistRelatedPlaylist(id: String): RestResponse<Any>
+    suspend fun getTrackListInAlbum(id: String): RestResponse<NetworkTrack>
 }
 
 private const val endpoint = "https://api.deezer.com/"
@@ -90,4 +91,12 @@ internal class RepositoryImpl internal constructor(private val client: HttpClien
             apiUrl("artist/$id/playlists")
         }
     }
+
+    ////////////////////////// ARTIST //////////////////////////////
+    override suspend fun getTrackListInAlbum(id: String): RestResponse<NetworkTrack> {
+        return client.get {
+            apiUrl("album/$id/tracks")
+        }
+    }
+
 }

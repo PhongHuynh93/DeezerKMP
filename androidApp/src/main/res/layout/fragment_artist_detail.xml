@@ -111,6 +111,7 @@
                 app:tabIndicatorFullWidth="false"
                 app:tabTextColor="@color/selector_tab_indicator_text"
                 app:tabTextAppearance="@style/TabTextStyle"
+                android:background="?android:attr/colorBackground"
                 app:tabMode="fixed" />
 
         </com.google.android.material.appbar.AppBarLayout>

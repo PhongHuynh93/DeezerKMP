@@ -3,6 +3,7 @@ package com.wind.deezerkmp.androidApp
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.wind.deezerkmp.androidApp.ui.album.TrackListFragment
 import com.wind.deezerkmp.androidApp.ui.artist.ArtistDetailFragment
 import com.wind.deezerkmp.androidApp.ui.artist.ArtistListFragment
 import com.wind.deezerkmp.androidApp.util.NavViewModel
@@ -22,6 +23,9 @@ class MainActivity : AppCompatActivity(R.layout.fragment) {
         })
         vmNav.goToArtistDetail.observe(this, EventObserver {
             replaceFragment(R.id.root, ArtistDetailFragment.newInstance(it))
+        })
+        vmNav.goToAlbumDetail.observe(this, EventObserver {
+            replaceFragment(R.id.root, TrackListFragment.newInstance(it))
         })
     }
 }

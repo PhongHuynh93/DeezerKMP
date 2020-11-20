@@ -72,7 +72,7 @@ class ArtistListFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpToolbar(viewBinding.toolBar, getString(R.string.genre_artist_title, genreTitle), true)
+        setUpToolbar(viewBinding.toolBar, getString(R.string.genre_artist_title, genreTitle))
         viewBinding.rcv.apply {
             adapter = artistListAdapter
             val spanCount = 2

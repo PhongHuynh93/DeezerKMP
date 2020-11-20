@@ -6,6 +6,7 @@ import com.wind.deezerkmp.shared.data.RepositoryImpl
 import com.wind.deezerkmp.shared.domain.usecase.GetAlbumListByArtistUseCase
 import com.wind.deezerkmp.shared.domain.usecase.GetArtistListByGenreUseCase
 import com.wind.deezerkmp.shared.domain.usecase.GetGenreListUseCase
+import com.wind.deezerkmp.shared.domain.usecase.GetTrackListInAlbumUseCase
 import io.ktor.client.*
 import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*
@@ -45,4 +46,5 @@ val commonModule = module {
     factory { GetGenreListUseCase(ioDispatcher, get()) }
     factory { GetArtistListByGenreUseCase(ioDispatcher, get()) }
     factory { GetAlbumListByArtistUseCase(ioDispatcher, get()) }
+    factory { GetTrackListInAlbumUseCase(ioDispatcher, get()) }
 }
