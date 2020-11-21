@@ -3,6 +3,7 @@ package com.wind.deezerkmp.shared.viewmodel
 import com.wind.animelist.shared.base.BaseViewModel
 import com.wind.animelist.shared.base.ioDispatcher
 import com.wind.deezerkmp.shared.domain.data
+import com.wind.deezerkmp.shared.domain.model.Album
 import com.wind.deezerkmp.shared.domain.model.Track
 import com.wind.deezerkmp.shared.domain.usecase.GetTrackListInAlbumParam
 import com.wind.deezerkmp.shared.domain.usecase.GetTrackListInAlbumUseCase
@@ -28,9 +29,9 @@ class TrackListInAlbumViewModel : BaseViewModel(), KoinComponent {
     private val _loadState = MutableStateFlow<LoadState>(LoadState.Loading)
     val loadState: CFlow<LoadState> get() = _loadState.filterNotNull().asCommonFlow()
 
-    fun start(id: String) {
+    fun start(album: Album) {
         clientScope.launch(ioDispatcher) {
-            _data.value = getTrackListInAlbumUseCase(GetTrackListInAlbumParam(id)).data
+            _data.value = getTrackListInAlbumUseCase(GetTrackListInAlbumParam(album)).data
             _loadState.value = LoadState.NotLoading.Complete
         }
     }

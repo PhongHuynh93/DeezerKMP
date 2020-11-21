@@ -91,7 +91,6 @@ class ArtistDetailFragment : Fragment() {
                     viewBinding.toolBar.updatePadding(top = windowInsets.systemWindowInsetTop)
                 }
             }
-            viewBinding.vPager.updatePadding(bottom = windowInsets.systemWindowInsetBottom)
         }
         viewBinding.vPager.apply {
             adapter = ArtistDetailAdapter(this@ArtistDetailFragment, artist)

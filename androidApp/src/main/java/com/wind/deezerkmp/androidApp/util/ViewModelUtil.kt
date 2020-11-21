@@ -12,7 +12,7 @@ import util.Event
  * Created by Phong Huynh on 10/6/2020
  */
 class NavViewModel : ViewModel() {
-    val goToTrackDetail: MutableLiveData<Event<Track>> by lazy {
+    val playTrack: MutableLiveData<Event<Track>> by lazy {
         MutableLiveData<Event<Track>>()
     }
     val goToAlbumDetail: MutableLiveData<Event<Album>> by lazy {

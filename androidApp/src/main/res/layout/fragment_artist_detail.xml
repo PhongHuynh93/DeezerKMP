@@ -25,7 +25,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!--            fixme change the contentScrim to color pallete-->
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/collapsingToolbar"
                 android:layout_width="match_parent"
