@@ -3,25 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/main_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         tools:context=".MainActivity">
 
-        <include layout="@layout/fragment"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
+        <include layout="@layout/fragment"/>
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/miniPlayer"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/height_mini_player"
+            android:layout_height="match_parent"
             android:layout_gravity="bottom"
             android:visibility="gone"
             tools:background="@color/black_20" />
-    </LinearLayout>
+    </FrameLayout>
 </layout>
 

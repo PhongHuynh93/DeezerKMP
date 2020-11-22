@@ -1,6 +1,5 @@
 package com.wind.deezerkmp.androidApp.ui.track
 
-import android.R.attr.centerColor
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
@@ -16,7 +15,7 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.wind.deezerkmp.androidApp.R
-import com.wind.deezerkmp.androidApp.databinding.FragmentMiniPlayerBinding
+import com.wind.deezerkmp.androidApp.databinding.FragmentPlayerBinding
 import com.wind.deezerkmp.shared.domain.model.Track
 
 
@@ -30,13 +29,13 @@ class MiniPlayerFragment: Fragment() {
         }
     }
 
-    private lateinit var viewBinding: FragmentMiniPlayerBinding
+    private lateinit var viewBinding: FragmentPlayerBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewBinding = FragmentMiniPlayerBinding.inflate(inflater, container, false).apply {
+        viewBinding = FragmentPlayerBinding.inflate(inflater, container, false).apply {
 //            vm = vmMiniPlayer
             rm = Glide.with(this@MiniPlayerFragment)
             lifecycleOwner = viewLifecycleOwner
@@ -50,7 +49,7 @@ class MiniPlayerFragment: Fragment() {
         // load image with palette
         Glide.with(this)
             .asBitmap()
-            .load(track.album.model.pictureBig)
+            .load(track.album.model.pictureMedium)
             .placeholder(R.drawable.image_placeholder)
             .addListener(object : RequestListener<Bitmap> {
                 override fun onLoadFailed(
@@ -70,6 +69,7 @@ class MiniPlayerFragment: Fragment() {
                     isFirstResource: Boolean
                 ): Boolean {
                     resource?.let {
+                        // TODO: 11/22/2020 what if onloadfailed occur
                         val palette = Palette.from(it).generate()
                         val topColor = palette.getDarkVibrantColor(Color.BLACK)
                         val bottomColor = palette.getVibrantColor(topColor)
@@ -82,11 +82,11 @@ class MiniPlayerFragment: Fragment() {
                                 bottomColor
                             )
                         )
-                        viewBinding.miniPlayerContainer.background = gradientDrawable
+                        viewBinding.playerBackgroundView.background = gradientDrawable
                     }
                     return false
                 }
             })
-            .into(viewBinding.imgvAvatar)
+            .into(viewBinding.albumArtImageView)
     }
 }
