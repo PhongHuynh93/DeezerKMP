@@ -15,6 +15,7 @@
     </data>
 
     <com.wind.deezerkmp.androidApp.ui.track.PlayerMotionLayout
+        android:id="@+id/motionView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:theme="@style/AppTheme.Dark"
@@ -91,6 +92,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/player_background_view">
 
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolBar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
             <widget.RatioImageView
                 android:id="@+id/album_art_full_image_view"
                 android:layout_width="0dp"
@@ -102,7 +112,7 @@
                 app:image="@{track.album.model.pictureBig}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolBar"
                 app:requestManager="@{rm}"
                 app:riv_dimensionRatio="1:1"
                 app:shapeAppearance="?attr/shapeAppearanceSquareComponent"
