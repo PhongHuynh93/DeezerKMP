@@ -5,12 +5,13 @@
     <Transition
         app:constraintSetEnd="@id/end"
         app:constraintSetStart="@+id/start"
-        app:duration="300"
-        app:motionInterpolator="easeOut">
+        app:duration="@android:integer/config_shortAnimTime"
+        app:motionInterpolator="easeInOut">
 
         <OnSwipe
             app:dragDirection="dragUp"
-            app:maxAcceleration="250"
+            app:maxVelocity="30"
+            app:maxAcceleration="30"
             app:touchAnchorId="@+id/player_background_view"
             app:touchAnchorSide="top" />
         <KeyFrameSet>

@@ -14,7 +14,7 @@
             type="com.wind.deezerkmp.shared.domain.model.Track" />
     </data>
 
-    <androidx.constraintlayout.motion.widget.MotionLayout
+    <com.wind.deezerkmp.androidApp.ui.track.PlayerMotionLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:theme="@style/AppTheme.Dark"
@@ -140,7 +140,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.motion.widget.MotionLayout>
-
+    </com.wind.deezerkmp.androidApp.ui.track.PlayerMotionLayout>
 </layout>
 
