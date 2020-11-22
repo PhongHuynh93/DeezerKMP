@@ -8,6 +8,8 @@
         app:duration="@android:integer/config_shortAnimTime"
         app:motionInterpolator="easeInOut">
 
+<!--        slow down drag animation-->
+<!--        https://stackoverflow.com/questions/58123685/slowing-down-motionlayout-animation-on-swipe-->
         <OnSwipe
             app:dragDirection="dragUp"
             app:maxVelocity="30"
