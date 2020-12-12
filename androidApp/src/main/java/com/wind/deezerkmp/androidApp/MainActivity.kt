@@ -9,6 +9,7 @@ import com.wind.deezerkmp.androidApp.ui.artist.ArtistDetailFragment
 import com.wind.deezerkmp.androidApp.ui.artist.ArtistListFragment
 import com.wind.deezerkmp.androidApp.ui.track.MiniPlayerFragment
 import com.wind.deezerkmp.androidApp.util.NavViewModel
+import com.wind.deezerkmp.androidApp.util.applySystemWindows
 import util.*
 
 class MainActivity : AppCompatActivity() {
@@ -33,9 +34,6 @@ class MainActivity : AppCompatActivity() {
             addFragment(R.id.miniPlayer, miniPlayerFragment)
         } else {
             miniPlayerFragment = miniPlayerFrag as MiniPlayerFragment
-        }
-        viewBinding.mainView.doOnApplyWindowInsets { v, windowInsets, _ ->
-            v.setMargins(b = windowInsets.systemWindowInsetBottom)
         }
         vmNav.goToArtistListByGenre.observe(this, EventObserver {
             replaceFragment(R.id.root, ArtistListFragment.newInstance(it.id, it.title))

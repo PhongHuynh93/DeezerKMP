@@ -2,6 +2,7 @@ package com.wind.deezerkmp.androidApp.ui.track
 
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,9 +19,7 @@ import com.bumptech.glide.request.target.Target
 import com.wind.deezerkmp.androidApp.R
 import com.wind.deezerkmp.androidApp.databinding.FragmentPlayerBinding
 import com.wind.deezerkmp.shared.domain.model.Track
-import util.getColorEx
-import util.getDrawableEx
-import util.tint
+import util.*
 
 
 /**
@@ -46,14 +45,22 @@ class MiniPlayerFragment: Fragment() {
             toolBar.apply {
                 val appActivity = activity as AppCompatActivity
                 appActivity.setSupportActionBar(this)
-                collapseIcon = requireContext().getDrawableEx(R.drawable.ic_baseline_keyboard_arrow_down_24)
+                setNavigationIcon(R.drawable.ic_baseline_keyboard_arrow_down_24)
                 navigationIcon?.tint(Color.WHITE)
                 setNavigationOnClickListener {
                     motionView.transitionToStart()
                 }
+                val actionbar = appActivity.supportActionBar
+                actionbar?.apply {
+                    this.title = ""
+                }
             }
         }
         return viewBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
     }
 
     fun setTrack(track: Track) {
@@ -82,20 +89,9 @@ class MiniPlayerFragment: Fragment() {
                     isFirstResource: Boolean
                 ): Boolean {
                     resource?.let {
-                        // TODO: 11/22/2020 what if onloadfailed occur
                         val palette = Palette.from(it).generate()
-                        val topColor = palette.getDarkVibrantColor(Color.BLACK)
-                        val bottomColor = palette.getVibrantColor(topColor)
-                        val gradientDrawable = GradientDrawable()
-                        gradientDrawable.orientation = GradientDrawable.Orientation.BL_TR
-                        gradientDrawable.shape = GradientDrawable.RECTANGLE
-                        gradientDrawable.setColors(
-                            intArrayOf(
-                                topColor,
-                                bottomColor
-                            )
-                        )
-                        viewBinding.playerBackgroundView.background = gradientDrawable
+                        val bottomColor = palette.getVibrantColor(Color.BLACK)
+                        viewBinding.playerBackgroundView.background = ColorDrawable(bottomColor)
                     }
                     return false
                 }

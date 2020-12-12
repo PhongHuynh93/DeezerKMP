@@ -26,14 +26,13 @@ val Context.spaceLarge
     "paddingBottomSystemWindowInsets",
     requireAll = false
 )
-fun applySystemWindows(
-    view: View,
-    applyLeft: Boolean,
-    applyTop: Boolean,
-    applyRight: Boolean,
-    applyBottom: Boolean
+fun View.applySystemWindows(
+    applyLeft: Boolean = false,
+    applyTop: Boolean = false,
+    applyRight: Boolean = false,
+    applyBottom: Boolean = false
 ) {
-    view.doOnApplyWindowInsets { view, insets, padding ->
+    doOnApplyWindowInsets { view, insets, padding ->
         val left = if (applyLeft) insets.systemWindowInsetLeft else 0
         val top = if (applyTop) insets.systemWindowInsetTop else 0
         val right = if (applyRight) insets.systemWindowInsetRight else 0
