@@ -87,7 +87,7 @@ class MiniPlayerFragment: Fragment() {
                         val topColor = palette.getDarkVibrantColor(Color.BLACK)
                         val bottomColor = palette.getVibrantColor(topColor)
                         val gradientDrawable = GradientDrawable()
-                        gradientDrawable.orientation = GradientDrawable.Orientation.LEFT_RIGHT
+                        gradientDrawable.orientation = GradientDrawable.Orientation.BL_TR
                         gradientDrawable.shape = GradientDrawable.RECTANGLE
                         gradientDrawable.setColors(
                             intArrayOf(
