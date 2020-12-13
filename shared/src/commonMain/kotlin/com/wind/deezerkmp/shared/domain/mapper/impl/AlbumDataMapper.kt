@@ -21,6 +21,7 @@ class AlbumDataMapper: Mapper<NetworkAlbum, Album> {
                 pictureSmall = input.coverSmall.orEmpty(),
                 pictureXl = input.coverXl.orEmpty(),
             ),
+            releaseDate = input.releaseDate.orEmpty()
         )
     }
 }

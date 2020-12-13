@@ -3,4 +3,7 @@
     <dimen name="album_item_size">64dp</dimen>
 <!--    fixme calculate in code - not here-->
     <dimen name="artist_detail_title_margin_bottom">84dp</dimen>
+    <dimen name="height_mini_player">52dp</dimen>
+    <dimen name="img_art_full_margin_top">@dimen/space_normal</dimen>
+    <dimen name="artist_name_full_margin_top">@dimen/space_large</dimen>
 </resources>

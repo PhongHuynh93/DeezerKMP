@@ -1,4 +1,4 @@
-package com.wind.deezerkmp.androidApp.ui.album
+package com.wind.deezerkmp.androidApp.ui.track
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,12 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.wind.deezerkmp.androidApp.databinding.ListBinding
-import com.wind.deezerkmp.androidApp.ui.adapter.AlbumListAdapter
+import com.wind.deezerkmp.androidApp.databinding.FragmentListBinding
+import com.wind.deezerkmp.androidApp.ui.adapter.TrackListAdapter
 import com.wind.deezerkmp.androidApp.util.NavViewModel
 import com.wind.deezerkmp.androidApp.util.spaceNormal
 import com.wind.deezerkmp.shared.domain.model.Album
-import com.wind.deezerkmp.shared.viewmodel.AlbumListViewModel
+import com.wind.deezerkmp.shared.domain.model.Track
+import com.wind.deezerkmp.shared.viewmodel.TrackListInAlbumViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import org.koin.android.ext.android.inject
@@ -23,32 +24,35 @@ import org.koin.core.parameter.parametersOf
 import util.Event
 import util.gone
 import util.recyclerview.GridItemDecoration
+import util.setUpToolbar
 import util.show
 
 /**
  * Created by Phong Huynh on 11/4/2020
  */
-private const val EXTRA_ID = "xId"
-class AlbumListFragment : Fragment() {
+private const val EXTRA_DATA = "xDATA"
+class TrackListFragment : Fragment() {
     companion object {
-        fun newInstance(id: String): AlbumListFragment {
-            return AlbumListFragment().apply {
-                arguments = bundleOf(EXTRA_ID to id)
+        fun newInstance(album: Album): TrackListFragment {
+            return TrackListFragment().apply {
+                arguments = bundleOf(EXTRA_DATA to album)
             }
         }
     }
 
-    private lateinit var viewBinding: ListBinding
-    private val albumListViewModel by viewModel<AlbumListViewModel>()
+    private lateinit var album: Album
+    private lateinit var viewBinding: FragmentListBinding
+    private val trackListInAlbumViewModel by viewModel<TrackListInAlbumViewModel>()
     private val navViewModel by activityViewModels<NavViewModel>()
-    private val albumListAdapter: AlbumListAdapter by inject { parametersOf(this) }
+    private val trackListAdapter: TrackListAdapter by inject { parametersOf(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        albumListViewModel.start(requireArguments().getString(EXTRA_ID)!!)
-        albumListAdapter.callback = object: AlbumListAdapter.Callback {
-            override fun onClick(item: Album) {
-                navViewModel.goToAlbumDetail.value = Event(item)
+        album = requireArguments().getParcelable(EXTRA_DATA)!!
+        trackListInAlbumViewModel.start(album)
+        trackListAdapter.callback = object: TrackListAdapter.Callback {
+            override fun onClick(item: Track) {
+                navViewModel.playTrack.value = Event(item)
             }
         }
     }
@@ -58,7 +62,7 @@ class AlbumListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewBinding = ListBinding.inflate(inflater, container, false).apply {
+        viewBinding = FragmentListBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
         }
         return viewBinding.root
@@ -66,21 +70,22 @@ class AlbumListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUpToolbar(viewBinding.toolBar, album.model.name)
         viewBinding.rcv.apply {
-            adapter = albumListAdapter
+            adapter = trackListAdapter
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
             addItemDecoration(GridItemDecoration(requireContext().spaceNormal, true, 1))
         }
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            albumListViewModel.data.onEach { list ->
+            trackListInAlbumViewModel.data.onEach { list ->
                 if (list.isEmpty()) {
                     viewBinding.rcv.gone()
                     viewBinding.progressBar.show()
                 } else {
                     viewBinding.rcv.show()
                     viewBinding.progressBar.gone()
-                    albumListAdapter.setData(list)
+                    trackListAdapter.setData(list)
                 }
             }.collect()
         }

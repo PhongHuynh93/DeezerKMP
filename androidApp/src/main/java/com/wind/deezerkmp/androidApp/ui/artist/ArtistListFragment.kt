@@ -9,9 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.transition.Hold
 import com.wind.deezerkmp.androidApp.R
 import com.wind.deezerkmp.androidApp.databinding.FragmentListBinding
-import com.wind.deezerkmp.androidApp.databinding.ListBinding
 import com.wind.deezerkmp.androidApp.ui.adapter.ArtistListAdapter
 import com.wind.deezerkmp.androidApp.util.NavViewModel
 import com.wind.deezerkmp.androidApp.util.spaceNormal
@@ -33,6 +33,7 @@ import util.show
  */
 private const val EXTRA_ID = "xId"
 private const val EXTRA_GENRE_TITLE = "xGenreTitle"
+data class ArtistShareViewModel(val view: View, val artist: Artist, val imageUrl: String)
 class ArtistListFragment: Fragment() {
     companion object {
         fun newInstance(id: String, genreTitle: String): ArtistListFragment {
@@ -53,11 +54,12 @@ class ArtistListFragment: Fragment() {
         super.onCreate(savedInstanceState)
         artistListViewModel.start(requireArguments().getString(EXTRA_ID)!!)
         artistListAdapter.callback = object: ArtistListAdapter.Callback {
-            override fun onClick(item: Artist) {
-                navViewModel.goToArtistDetail.value = Event(item)
+            override fun onClick(view: View, item: Artist, imageUrl: String) {
+                navViewModel.goToArtistDetail.value = Event(ArtistShareViewModel(view, item, imageUrl))
             }
         }
         genreTitle = requireArguments().getString(EXTRA_GENRE_TITLE)!!
+        exitTransition = Hold()
     }
 
     override fun onCreateView(
@@ -72,7 +74,7 @@ class ArtistListFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpToolbar(viewBinding.toolBar, getString(R.string.genre_artist_title, genreTitle), true)
+        setUpToolbar(viewBinding.toolBar, getString(R.string.genre_artist_title, genreTitle))
         viewBinding.rcv.apply {
             adapter = artistListAdapter
             val spanCount = 2

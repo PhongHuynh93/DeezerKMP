@@ -327,10 +327,9 @@ fun FragmentTransaction.useAnim() {
 }
 
 fun FragmentActivity.addFragment(id: Int, fragment: Fragment, tag: String? = null) {
-    if (findFragmentById(id) == null) {
-        supportFragmentManager.commit(true) {
-            add(id, fragment, tag)
-        }
+    supportFragmentManager.commit(true) {
+        add(id, fragment, tag)
+        setReorderingAllowed(true)
     }
 }
 
@@ -346,6 +345,7 @@ fun FragmentActivity.replaceFragment(
         if (isAddBackStack) {
             addToBackStack(tag)
         }
+        setReorderingAllowed(true)
     }
 }
 
