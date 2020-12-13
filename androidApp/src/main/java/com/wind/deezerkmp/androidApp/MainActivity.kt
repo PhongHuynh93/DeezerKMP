@@ -3,13 +3,14 @@ package com.wind.deezerkmp.androidApp
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.commit
+import com.google.android.material.transition.MaterialContainerTransform
 import com.wind.deezerkmp.androidApp.databinding.ActivityMainBinding
 import com.wind.deezerkmp.androidApp.ui.track.TrackListFragment
 import com.wind.deezerkmp.androidApp.ui.artist.ArtistDetailFragment
 import com.wind.deezerkmp.androidApp.ui.artist.ArtistListFragment
 import com.wind.deezerkmp.androidApp.ui.track.MiniPlayerFragment
 import com.wind.deezerkmp.androidApp.util.NavViewModel
-import com.wind.deezerkmp.androidApp.util.applySystemWindows
 import util.*
 
 class MainActivity : AppCompatActivity() {
@@ -39,7 +40,21 @@ class MainActivity : AppCompatActivity() {
             replaceFragment(R.id.root, ArtistListFragment.newInstance(it.id, it.title))
         })
         vmNav.goToArtistDetail.observe(this, EventObserver {
-            replaceFragment(R.id.root, ArtistDetailFragment.newInstance(it))
+            val targetFrag = ArtistDetailFragment.newInstance(it.artist, it.view.transitionName).apply {
+                sharedElementEnterTransition = MaterialContainerTransform()
+            }
+            supportFragmentManager.commit(true) {
+                addSharedElement(it.view, it.view.transitionName)
+                setCustomAnimations(
+                    0,
+                    0,
+                    0,
+                    com.wind.collagePhotoMaker.share.R.anim.slide_out
+                )
+                replace(R.id.root, targetFrag)
+                addToBackStack(null)
+                setReorderingAllowed(true)
+            }
         })
         vmNav.goToAlbumDetail.observe(this, EventObserver {
             replaceFragment(R.id.root, TrackListFragment.newInstance(it))

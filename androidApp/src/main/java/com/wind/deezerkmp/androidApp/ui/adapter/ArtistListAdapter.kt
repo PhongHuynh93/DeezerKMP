@@ -2,6 +2,7 @@ package com.wind.deezerkmp.androidApp.ui.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -32,9 +33,9 @@ class ArtistListAdapter constructor(
                 parent, false
             )
         ).apply {
-            itemView.setOnClickListener {
+            binding.imgv.setOnClickListener {
                 if (bindingAdapterPosition >= 0) {
-                    callback?.onClick(getItem(bindingAdapterPosition))
+                    callback?.onClick(it, getItem(bindingAdapterPosition))
                 }
             }
         }
@@ -43,6 +44,7 @@ class ArtistListAdapter constructor(
     override fun onBindViewHolder(holder: ArtistViewHolder, position: Int) {
         holder.binding.rm = requestManager
         holder.binding.item = getItem(position)
+        holder.binding.imgv.transitionName = getItem(position).id
         holder.binding.executePendingBindings()
     }
 
@@ -53,6 +55,6 @@ class ArtistListAdapter constructor(
     var callback: Callback? = null
 
     interface Callback {
-        fun onClick(item: Artist)
+        fun onClick(view: View, item: Artist)
     }
 }
