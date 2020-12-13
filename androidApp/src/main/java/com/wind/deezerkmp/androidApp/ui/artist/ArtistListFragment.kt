@@ -33,7 +33,7 @@ import util.show
  */
 private const val EXTRA_ID = "xId"
 private const val EXTRA_GENRE_TITLE = "xGenreTitle"
-data class ArtistShareViewModel(val view: View, val artist: Artist)
+data class ArtistShareViewModel(val view: View, val artist: Artist, val imageUrl: String)
 class ArtistListFragment: Fragment() {
     companion object {
         fun newInstance(id: String, genreTitle: String): ArtistListFragment {
@@ -54,8 +54,8 @@ class ArtistListFragment: Fragment() {
         super.onCreate(savedInstanceState)
         artistListViewModel.start(requireArguments().getString(EXTRA_ID)!!)
         artistListAdapter.callback = object: ArtistListAdapter.Callback {
-            override fun onClick(view: View, item: Artist) {
-                navViewModel.goToArtistDetail.value = Event(ArtistShareViewModel(view, item))
+            override fun onClick(view: View, item: Artist, imageUrl: String) {
+                navViewModel.goToArtistDetail.value = Event(ArtistShareViewModel(view, item, imageUrl))
             }
         }
         genreTitle = requireArguments().getString(EXTRA_GENRE_TITLE)!!

@@ -35,7 +35,7 @@ class ArtistListAdapter constructor(
         ).apply {
             binding.imgv.setOnClickListener {
                 if (bindingAdapterPosition >= 0) {
-                    callback?.onClick(it, getItem(bindingAdapterPosition))
+                    callback?.onClick(it, getItem(bindingAdapterPosition), getItem(bindingAdapterPosition).model.pictureMedium)
                 }
             }
         }
@@ -55,6 +55,6 @@ class ArtistListAdapter constructor(
     var callback: Callback? = null
 
     interface Callback {
-        fun onClick(view: View, item: Artist)
+        fun onClick(view: View, item: Artist, imageUrl: String)
     }
 }

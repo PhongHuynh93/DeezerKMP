@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,8 +15,10 @@ import androidx.fragment.app.Fragment
 import androidx.palette.graphics.Palette
 import androidx.palette.graphics.get
 import com.bumptech.glide.Glide
+import com.bumptech.glide.Priority
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.Request
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.google.android.material.tabs.TabLayoutMediator
@@ -30,18 +33,30 @@ import util.*
  */
 private const val EXTRA_DATA = "xData"
 private const val EXTRA_TRANSITION_NAME = "xTransitionName"
+private const val EXTRA_WIDTH = "xWidth"
+private const val EXTRA_HEIGHT = "xHeight"
+private const val EXTRA_IMAGE_URL = "xImageUrl"
 
 const val ARTIST_DETAIL_COUNT = 1
 const val ARTIST_DETAIL_ALBUM_POS = 0
 class ArtistDetailFragment : Fragment() {
     companion object {
-        fun newInstance(artist: Artist, transitionName: String): ArtistDetailFragment {
+        fun newInstance(
+            artist: Artist,
+            transitionName: String,
+            width: Int,
+            height: Int,
+            imageUrl: String
+        ): ArtistDetailFragment {
             return ArtistDetailFragment().apply {
-                arguments = bundleOf(EXTRA_DATA to artist, EXTRA_TRANSITION_NAME to transitionName)
+                arguments = bundleOf(EXTRA_DATA to artist, EXTRA_TRANSITION_NAME to transitionName, EXTRA_WIDTH to width, EXTRA_HEIGHT to height, EXTRA_IMAGE_URL to imageUrl)
             }
         }
     }
 
+    private var heightImage: Int = 0
+    private var widthImage: Int = 0
+    private lateinit var imageUrl: String
     private lateinit var transitionName: String
     private var statusBarColor: Int = 0
     private lateinit var artist: Artist
@@ -65,6 +80,9 @@ class ArtistDetailFragment : Fragment() {
         super.onCreate(savedInstanceState)
         artist = requireArguments().getParcelable<Artist>(EXTRA_DATA)!!
         transitionName = requireArguments().getString(EXTRA_TRANSITION_NAME)!!
+        imageUrl = requireArguments().getString(EXTRA_IMAGE_URL)!!
+        widthImage = requireArguments().getInt(EXTRA_WIDTH)!!
+        heightImage = requireArguments().getInt(EXTRA_HEIGHT)!!
     }
 
     override fun onCreateView(
@@ -110,6 +128,7 @@ class ArtistDetailFragment : Fragment() {
         // load image with palette
         Glide.with(this@ArtistDetailFragment)
             .asBitmap()
+            .thumbnail(Glide.with(this).asBitmap().load(imageUrl).priority(Priority.IMMEDIATE).override(widthImage, heightImage))
             .load(artist.model.pictureBig)
             .placeholder(R.drawable.image_placeholder)
             .addListener(object: RequestListener<Bitmap> {

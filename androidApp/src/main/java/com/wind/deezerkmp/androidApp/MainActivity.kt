@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
             replaceFragment(R.id.root, ArtistListFragment.newInstance(it.id, it.title))
         })
         vmNav.goToArtistDetail.observe(this, EventObserver {
-            val targetFrag = ArtistDetailFragment.newInstance(it.artist, it.view.transitionName).apply {
+            val targetFrag = ArtistDetailFragment.newInstance(it.artist, it.view.transitionName, it.view.width, it.view.height, it.imageUrl).apply {
                 sharedElementEnterTransition = MaterialContainerTransform()
             }
             supportFragmentManager.commit(true) {
