@@ -58,23 +58,9 @@ class ArtistDetailFragment : Fragment() {
     private var widthImage: Int = 0
     private lateinit var imageUrl: String
     private lateinit var transitionName: String
-    private var statusBarColor: Int = 0
     private lateinit var artist: Artist
 
     private lateinit var viewBinding: FragmentArtistDetailBinding
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        statusBarColor = requireActivity().statusBarColor()
-        requireActivity().statusBarColor(getColorEx(R.color.transparent))
-        lightStatusBar(false)
-    }
-
-    override fun onDetach() {
-        requireActivity().statusBarColor(statusBarColor)
-        lightStatusBar(resources.getBoolean(R.bool.use_light_system_bars))
-        super.onDetach()
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,6 +88,7 @@ class ArtistDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        lightStatusBar(false)
         setUpToolbar(viewBinding.toolBar, toolbarColorInt = Color.WHITE)
         // manually update height and padding top of toolbar
         var toolbarHeight = 0
@@ -160,5 +147,10 @@ class ArtistDetailFragment : Fragment() {
                 }
             })
             .into(viewBinding.artistImageView)
+    }
+
+    override fun onDestroyView() {
+        lightStatusBar(resources.getBoolean(R.bool.use_light_system_bars))
+        super.onDestroyView()
     }
 }

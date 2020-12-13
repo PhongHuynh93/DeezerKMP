@@ -26,8 +26,10 @@ class MainActivity : AppCompatActivity() {
         fullScreen()
         lightStatusBar(resources.getBoolean(R.bool.use_light_system_bars))
         lightNavigationBar(resources.getBoolean(R.bool.use_light_system_bars))
-        if (findFragmentById(R.id.root) == null) {
-            addFragment(R.id.root, MainFragment.newInstance())
+        statusBarColor(getColorEx(R.color.transparent))
+
+        if (findFragmentById(R.id.content) == null) {
+            addFragment(R.id.content, MainFragment.newInstance())
         }
         val miniPlayerFrag = findFragmentById(R.id.miniPlayer)
         if (miniPlayerFrag == null) {
@@ -37,7 +39,7 @@ class MainActivity : AppCompatActivity() {
             miniPlayerFragment = miniPlayerFrag as MiniPlayerFragment
         }
         vmNav.goToArtistListByGenre.observe(this, EventObserver {
-            replaceFragment(R.id.root, ArtistListFragment.newInstance(it.id, it.title))
+            replaceFragment(R.id.content, ArtistListFragment.newInstance(it.id, it.title))
         })
         vmNav.goToArtistDetail.observe(this, EventObserver {
             val targetFrag = ArtistDetailFragment.newInstance(it.artist, it.view.transitionName, it.view.width, it.view.height, it.imageUrl).apply {
@@ -51,16 +53,18 @@ class MainActivity : AppCompatActivity() {
                     0,
                     com.wind.collagePhotoMaker.share.R.anim.slide_out
                 )
-                replace(R.id.root, targetFrag)
+                replace(R.id.content, targetFrag)
                 addToBackStack(null)
                 setReorderingAllowed(true)
             }
         })
         vmNav.goToAlbumDetail.observe(this, EventObserver {
-            replaceFragment(R.id.root, TrackListFragment.newInstance(it))
+            replaceFragment(R.id.content, TrackListFragment.newInstance(it))
         })
+        val heightMiniPlayer = getDimen(R.dimen.height_mini_player)
         vmNav.playTrack.observe(this, EventObserver {
             viewBinding.miniPlayer.show()
+            viewBinding.content.setMargins(b = heightMiniPlayer.toInt())
             miniPlayerFragment.setTrack(it)
         })
     }

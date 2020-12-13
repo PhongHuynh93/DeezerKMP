@@ -7,10 +7,11 @@
         android:id="@+id/main_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        paddingBottomSystemWindowInsets="@{true}"
+        app:paddingBottomSystemWindowInsets="@{true}"
         tools:context=".MainActivity">
 
-        <include layout="@layout/fragment"/>
+        <include layout="@layout/fragment"
+            android:id="@+id/content"/>
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/miniPlayer"

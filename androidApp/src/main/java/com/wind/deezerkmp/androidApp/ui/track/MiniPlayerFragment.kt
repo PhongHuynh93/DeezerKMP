@@ -5,10 +5,12 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.transition.Transition
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.fragment.app.Fragment
 import androidx.palette.graphics.Palette
 import com.bumptech.glide.Glide
@@ -19,6 +21,7 @@ import com.bumptech.glide.request.target.Target
 import com.wind.deezerkmp.androidApp.R
 import com.wind.deezerkmp.androidApp.databinding.FragmentPlayerBinding
 import com.wind.deezerkmp.shared.domain.model.Track
+import timber.log.Timber
 import util.*
 
 
@@ -61,6 +64,25 @@ class MiniPlayerFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewBinding.motionView.addTransitionListener(object: MotionLayout.TransitionListener {
+            override fun onTransitionStarted(p0: MotionLayout?, p1: Int, p2: Int) {
+            }
+
+            override fun onTransitionChange(p0: MotionLayout?, p1: Int, p2: Int, p3: Float) {
+            }
+
+            override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
+                if (viewBinding.motionView.targetPosition == 1f) {
+                    lightStatusBar(false)
+                } else {
+                    lightStatusBar(resources.getBoolean(R.bool.use_light_system_bars))
+                }
+            }
+
+            override fun onTransitionTrigger(p0: MotionLayout?, p1: Int, p2: Boolean, p3: Float) {
+            }
+
+        })
     }
 
     fun setTrack(track: Track) {
