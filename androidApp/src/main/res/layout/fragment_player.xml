@@ -88,6 +88,7 @@
             android:id="@+id/playerContainer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.Dark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/player_background_view">
@@ -138,7 +139,7 @@
                 android:id="@+id/artist_name_full_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_vertical_text_to_text_big"
+                android:layout_marginTop="@dimen/space_vertical_text_to_text"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="@{track.artist.model.name}"
@@ -147,6 +148,40 @@
                 app:layout_constraintStart_toStartOf="@+id/album_art_full_image_view"
                 app:layout_constraintTop_toBottomOf="@+id/audio_name_full_text_view"
                 tools:text="@tools:sample/lorem/random" />
+
+            <ImageView
+                android:id="@+id/imgvPrevious"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/imgvPlayPause"
+                app:layout_constraintBottom_toBottomOf="@+id/imgvPlayPause"
+                app:layout_constraintEnd_toStartOf="@+id/imgvPlayPause"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:srcCompat="@drawable/ic_baseline_skip_previous_24" />
+
+            <ImageView
+                android:id="@+id/imgvPlayPause"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_large"
+                android:layout_marginStart="@dimen/space_large"
+                android:layout_marginEnd="@dimen/space_large"
+                app:layout_constraintTop_toBottomOf="@+id/artist_name_full_text_view"
+                app:layout_constraintStart_toEndOf="@+id/imgvPrevious"
+                app:layout_constraintEnd_toStartOf="@+id/imgvNext"
+                app:srcCompat="@drawable/ic_baseline_play_arrow_large" />
+
+            <ImageView
+                android:id="@+id/imgvNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imgvPlayPause"
+                app:layout_constraintTop_toTopOf="@+id/imgvPlayPause"
+                app:layout_constraintBottom_toBottomOf="@+id/imgvPlayPause"
+                app:srcCompat="@drawable/ic_baseline_skip_next_24" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
