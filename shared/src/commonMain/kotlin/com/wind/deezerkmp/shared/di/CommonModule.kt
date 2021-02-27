@@ -1,6 +1,6 @@
 package com.wind.deezerkmp.shared.di
 
-import com.wind.animelist.shared.base.ioDispatcher
+import com.wind.deezerkmp.shared.base.ioDispatcher
 import com.wind.deezerkmp.shared.data.Repository
 import com.wind.deezerkmp.shared.data.RepositoryImpl
 import com.wind.deezerkmp.shared.domain.usecase.GetAlbumListByArtistUseCase

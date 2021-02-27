@@ -1,6 +1,6 @@
 package com.wind.deezerkmp.shared.util
 
-import com.wind.animelist.shared.base.mainDispatcher
+import com.wind.deezerkmp.shared.base.mainDispatcher
 import io.ktor.utils.io.core.Closeable
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*

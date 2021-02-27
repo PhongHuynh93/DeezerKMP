@@ -1,4 +1,4 @@
-package com.wind.animelist.shared.base
+package com.wind.deezerkmp.shared.base
 
 import kotlinx.coroutines.CoroutineDispatcher
 

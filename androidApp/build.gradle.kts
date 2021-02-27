@@ -71,4 +71,8 @@ android {
         this as org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
         jvmTarget = "1.8"
     }
+
+    lintOptions {
+        isAbortOnError = false
+    }
 }

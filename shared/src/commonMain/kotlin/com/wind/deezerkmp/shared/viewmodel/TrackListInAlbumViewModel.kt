@@ -1,7 +1,7 @@
 package com.wind.deezerkmp.shared.viewmodel
 
 import com.wind.animelist.shared.base.BaseViewModel
-import com.wind.animelist.shared.base.ioDispatcher
+import com.wind.deezerkmp.shared.base.ioDispatcher
 import com.wind.deezerkmp.shared.domain.data
 import com.wind.deezerkmp.shared.domain.model.Album
 import com.wind.deezerkmp.shared.domain.model.Track
