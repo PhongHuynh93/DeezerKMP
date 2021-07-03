@@ -1,6 +1,5 @@
-package com.wind.animelist.shared.base
+package com.wind.deezerkmp.shared.base
 
-import com.wind.deezerkmp.shared.base.ioDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelChildren

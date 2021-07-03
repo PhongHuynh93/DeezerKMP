@@ -1,6 +1,6 @@
 package com.wind.deezerkmp.shared.viewmodel
 
-import com.wind.animelist.shared.base.BaseViewModel
+import com.wind.deezerkmp.shared.base.BaseViewModel
 import com.wind.deezerkmp.shared.base.ioDispatcher
 import com.wind.deezerkmp.shared.domain.data
 import com.wind.deezerkmp.shared.domain.model.Album
@@ -14,8 +14,8 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 /**
  * Created by Phong Huynh on 11/15/2020

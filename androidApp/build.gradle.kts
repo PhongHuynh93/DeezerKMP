@@ -34,7 +34,6 @@ dependencies {
     // injection
     implementation(Libs.Injection.core)
     implementation(Libs.Injection.Android.android)
-    implementation(Libs.Injection.Android.androidViewModel)
 
     // glide
     implementation(Libs.Glide.glide1)

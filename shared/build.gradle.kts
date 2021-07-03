@@ -3,9 +3,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 plugins {
     kotlin("multiplatform")
     id(Plugins.androidLibrary)
-    kotlin(Plugins.kotlinExtensions)
     id(Plugins.serialization)
-    kotlin(Plugins.kapt)
 }
 group = "com.wind.deezerkmp"
 version = "1.0-SNAPSHOT"

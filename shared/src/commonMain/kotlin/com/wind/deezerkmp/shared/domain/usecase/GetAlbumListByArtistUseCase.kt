@@ -3,11 +3,7 @@ package com.wind.deezerkmp.shared.domain.usecase
 import com.wind.deezerkmp.shared.data.Repository
 import com.wind.deezerkmp.shared.domain.UseCase
 import com.wind.deezerkmp.shared.domain.mapper.impl.AlbumDataMapper
-import com.wind.deezerkmp.shared.domain.mapper.impl.ArtistDataMapper
-import com.wind.deezerkmp.shared.domain.mapper.impl.GenreDataMapper
 import com.wind.deezerkmp.shared.domain.model.Album
-import com.wind.deezerkmp.shared.domain.model.Artist
-import com.wind.deezerkmp.shared.domain.model.Genre
 import kotlinx.coroutines.CoroutineDispatcher
 
 /**

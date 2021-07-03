@@ -5,4 +5,4 @@ package com.wind.deezerkmp.shared.base
  */
 // Android Code
 actual typealias Parcelable = android.os.Parcelable
-actual typealias Parcelize = kotlinx.android.parcel.Parcelize
+actual typealias Parcelize = kotlinx.parcelize.Parcelize

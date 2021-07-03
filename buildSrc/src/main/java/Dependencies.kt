@@ -1,15 +1,14 @@
 object Versions {
-    const val kotlin = "1.4.10"
-    const val kotlinCoroutines = "1.3.9-native-mt-2"
-    const val gradlePlugin: String = "4.0.1"
+    const val kotlin = "1.5.10"
+    const val kotlinCoroutines = "1.5.0-native-mt"
+    const val gradlePlugin: String = "4.1.1"
     const val glide: String = "4.10.0"
     const val supportLibrary: String = "1.1.0"
     const val material: String = "1.2.1"
     const val constraintLayout: String = "2.0.4"
-    const val room: String = "2.2.2"
     const val ktor = "1.4.0"
-    const val kotlinxSerialization = "1.0.0-RC"
-    const val injection = "3.0.0-alpha-4"
+    const val kotlinxSerialization = "1.2.1"
+    const val injection = "3.1.2"
 }
 
 object Libs {
@@ -32,10 +31,9 @@ object Libs {
         const val std = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
     }
     object Injection {
-        const val core = "org.koin:koin-core:${Versions.injection}"
+        const val core = "io.insert-koin:koin-core:${Versions.injection}"
         object Android {
-            const val android = "org.koin:koin-android:${Versions.injection}"
-            const val androidViewModel = "org.koin:koin-androidx-viewmodel:${Versions.injection}"
+            const val android = "io.insert-koin:koin-android:${Versions.injection}"
         }
     }
     object Test {
@@ -60,14 +58,6 @@ object Libs {
         const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.kotlinCoroutines}"
         const val coreAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions
             .kotlinCoroutines}"
-    }
-    object Db {
-        const val room = "androidx.room:room-runtime:${Versions.room}"
-        const val roomCompiler = "androidx.room:room-compiler:${Versions.room}"
-        const val roomRx2 = "androidx.room:room-ktx:${Versions.room}"
-    }
-    object Ad {
-        const val adMob = "com.google.android.gms:play-services-ads:19.2.0"
     }
     object Network {
 //        https://ktor.io/docs/http-client-multiplatform.html#samples
