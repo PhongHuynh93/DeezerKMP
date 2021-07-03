@@ -35,9 +35,8 @@ kotlin {
                 implementation(Libs.Injection.core)
                 implementation(Libs.Thread.core)
                 implementation(Libs.Network.core)
-                implementation(Libs.Network.core2)
+                implementation(Libs.Network.json)
                 implementation(Libs.Network.parser)
-                implementation(Libs.Network.parser2)
                 implementation(Libs.Network.logCore)
                 implementation(Libs.Network.logCore2)
             }
@@ -53,7 +52,6 @@ kotlin {
                 implementation(Libs.Android.viewModel)
                 implementation(Libs.Android.liveData)
                 implementation(Libs.Network.android)
-                implementation(Libs.Network.logAndroid)
                 implementation(Libs.Helper.log)
             }
         }

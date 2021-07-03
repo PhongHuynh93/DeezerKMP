@@ -6,7 +6,7 @@ object Versions {
     const val supportLibrary: String = "1.1.0"
     const val material: String = "1.2.1"
     const val constraintLayout: String = "2.0.4"
-    const val ktor = "1.4.0"
+    const val ktor = "1.6.1"
     const val kotlinxSerialization = "1.2.1"
     const val injection = "3.1.2"
 }
@@ -60,22 +60,19 @@ object Libs {
             .kotlinCoroutines}"
     }
     object Network {
-//        https://ktor.io/docs/http-client-multiplatform.html#samples
+        //        https://ktor.io/docs/http-client-multiplatform.html#samples
         const val core = "io.ktor:ktor-client-core:${Versions.ktor}"
-        const val core2 = "io.ktor:ktor-client-json:${Versions.ktor}"
+        const val json = "io.ktor:ktor-client-json:${Versions.ktor}"
         const val android = "io.ktor:ktor-client-android:${Versions.ktor}"
         const val ios = "io.ktor:ktor-client-ios:${Versions.ktor}"
 
         // log
-        const val logAndroid = "io.ktor:ktor-client-logging-jvm:${Versions.ktor}"
         const val logCore = "io.ktor:ktor-client-logging:${Versions.ktor}"
-//        const val logIos = "io.ktor:ktor-client-logging-native:${Versions.ktorIos}"
         const val logCore2 = "ch.qos.logback:logback-classic:1.2.3"
 
         // proguard for android
 //        https://github.com/Kotlin/kotlinx.serialization#android
-        const val parser = "org.jetbrains.kotlinx:kotlinx-serialization-core:${Versions.kotlinxSerialization}"
-        const val parser2 = "io.ktor:ktor-client-serialization:${Versions.ktor}"
+        const val parser = "io.ktor:ktor-client-serialization:${Versions.ktor}"
     }
 }
 
