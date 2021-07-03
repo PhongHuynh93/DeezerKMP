@@ -1,10 +1,8 @@
 package com.wind.deezerkmp.androidApp.ui.artist
 
-import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +16,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.Request
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.google.android.material.tabs.TabLayoutMediator
@@ -113,7 +110,7 @@ class ArtistDetailFragment : Fragment() {
         }.attach()
 
         // load image with palette
-        Glide.with(this@ArtistDetailFragment)
+        Glide.with(requireContext())
             .asBitmap()
             .thumbnail(Glide.with(this).asBitmap().load(imageUrl).priority(Priority.IMMEDIATE).override(widthImage, heightImage))
             .load(artist.model.pictureBig)
