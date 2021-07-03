@@ -1,7 +1,7 @@
 plugins {
     id(Plugins.androidApplication)
     kotlin(Plugins.kotlinAndroid)
-    kotlin(Plugins.kotlinExtensions)
+    id(Plugins.kotlinParcel)
     kotlin(Plugins.kapt)
 }
 
@@ -34,7 +34,6 @@ dependencies {
     // injection
     implementation(Libs.Injection.core)
     implementation(Libs.Injection.Android.android)
-    implementation(Libs.Injection.Android.androidViewModel)
 
     // glide
     implementation(Libs.Glide.glide1)

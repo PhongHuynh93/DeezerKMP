@@ -11,6 +11,7 @@ import io.ktor.client.*
 import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*
 import io.ktor.client.features.logging.*
+import kotlinx.serialization.json.Json
 import org.koin.core.context.startKoin
 import org.koin.dsl.KoinAppDeclaration
 import org.koin.dsl.module
@@ -25,16 +26,14 @@ fun initKoin(appDeclaration: KoinAppDeclaration = {}) = startKoin {
 }
 
 // called by iOS etc
-fun initKoin() = initKoin{}
+fun initKoin() = initKoin {}
 
 val commonModule = module {
+    single { Json { isLenient = true; ignoreUnknownKeys = true } }
     single<Repository> {
         val httpClient = HttpClient {
             install(JsonFeature) {
-                serializer = KotlinxSerializer(kotlinx.serialization.json.Json {
-                    ignoreUnknownKeys = true
-                    isLenient = true
-                })
+                serializer = KotlinxSerializer(get())
             }
             install(Logging) {
                 logger = Logger.DEFAULT
