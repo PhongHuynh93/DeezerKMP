@@ -4,6 +4,7 @@ plugins {
     kotlin("multiplatform")
     id(Plugins.androidLibrary)
     id(Plugins.serialization)
+    id(Plugins.kotlinParcel)
 }
 group = "com.wind.deezerkmp"
 version = "1.0-SNAPSHOT"
@@ -11,7 +12,6 @@ version = "1.0-SNAPSHOT"
 repositories {
     gradlePluginPortal()
     google()
-    jcenter()
     mavenCentral()
 }
 kotlin {

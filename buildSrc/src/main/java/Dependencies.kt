@@ -93,9 +93,9 @@ object Plugins {
     const val androidApplication = "com.android.application"
     const val androidLibrary = "com.android.library"
     const val kotlinAndroid = "android"
-    const val kotlinExtensions = "android.extensions"
     const val kapt = "kapt"
     const val serialization = "kotlinx-serialization"
+    const val kotlinParcel = "kotlin-parcelize"
 }
 
 object ClassPaths {
