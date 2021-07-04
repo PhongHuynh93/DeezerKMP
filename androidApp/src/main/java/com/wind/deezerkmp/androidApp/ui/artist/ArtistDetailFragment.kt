@@ -112,7 +112,7 @@ class ArtistDetailFragment : Fragment() {
         // load image with palette
         Glide.with(requireContext())
             .asBitmap()
-            .thumbnail(Glide.with(this).asBitmap().load(imageUrl).priority(Priority.IMMEDIATE).override(widthImage, heightImage))
+            .thumbnail(Glide.with(requireContext()).asBitmap().load(imageUrl).priority(Priority.IMMEDIATE).override(widthImage, heightImage))
             .load(artist.model.pictureBig)
             .placeholder(R.drawable.image_placeholder)
             .addListener(object: RequestListener<Bitmap> {

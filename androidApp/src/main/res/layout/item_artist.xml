@@ -25,9 +25,9 @@
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
-            app:riv_dimensionRatio="1:1"
             app:image="@{item.model.pictureMedium}"
             app:requestManager="@{rm}"
+            app:riv_dimensionRatio="1:1"
             app:shapeAppearance="?attr/shapeAppearanceCircleComponent"
             tools:src="@tools:sample/avatars" />
 
@@ -37,7 +37,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/space_tiny"
+            android:ellipsize="end"
             android:gravity="center"
+            android:maxLines="2"
             android:text="@{item.model.name}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
             app:layout_constraintEnd_toEndOf="parent"
