@@ -1,10 +1,9 @@
 package com.wind.deezerkmp.androidApp.ui.artist
 
-import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +17,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.Request
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.google.android.material.tabs.TabLayoutMediator
@@ -26,6 +24,7 @@ import com.wind.deezerkmp.androidApp.R
 import com.wind.deezerkmp.androidApp.databinding.FragmentArtistDetailBinding
 import com.wind.deezerkmp.androidApp.ui.adapter.ArtistDetailAdapter
 import com.wind.deezerkmp.shared.domain.model.Artist
+import timber.log.Timber
 import util.*
 
 /**
@@ -39,6 +38,7 @@ private const val EXTRA_IMAGE_URL = "xImageUrl"
 
 const val ARTIST_DETAIL_COUNT = 1
 const val ARTIST_DETAIL_ALBUM_POS = 0
+
 class ArtistDetailFragment : Fragment() {
     companion object {
         fun newInstance(
@@ -49,7 +49,13 @@ class ArtistDetailFragment : Fragment() {
             imageUrl: String
         ): ArtistDetailFragment {
             return ArtistDetailFragment().apply {
-                arguments = bundleOf(EXTRA_DATA to artist, EXTRA_TRANSITION_NAME to transitionName, EXTRA_WIDTH to width, EXTRA_HEIGHT to height, EXTRA_IMAGE_URL to imageUrl)
+                arguments = bundleOf(
+                    EXTRA_DATA to artist,
+                    EXTRA_TRANSITION_NAME to transitionName,
+                    EXTRA_WIDTH to width,
+                    EXTRA_HEIGHT to height,
+                    EXTRA_IMAGE_URL to imageUrl
+                )
             }
         }
     }
@@ -113,29 +119,29 @@ class ArtistDetailFragment : Fragment() {
         }.attach()
 
         // load image with palette
-        Glide.with(this@ArtistDetailFragment)
-            .asBitmap()
-            .thumbnail(Glide.with(this).asBitmap().load(imageUrl).priority(Priority.IMMEDIATE).override(widthImage, heightImage))
+        Glide.with(requireContext())
             .load(artist.model.pictureBig)
+            .thumbnail(
+                Glide.with(requireContext())
+                    .load(imageUrl)
+                    .priority(Priority.IMMEDIATE)
+                    .override(widthImage, heightImage)
+            )
             .placeholder(R.drawable.image_placeholder)
-            .addListener(object: RequestListener<Bitmap> {
-                override fun onLoadFailed(
-                    e: GlideException?,
-                    model: Any?,
-                    target: Target<Bitmap>?,
-                    isFirstResource: Boolean
-                ): Boolean {
+            .addListener(object : RequestListener<Drawable> {
+                override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
                     return false
                 }
 
                 override fun onResourceReady(
-                    resource: Bitmap?,
+                    resource: Drawable?,
                     model: Any?,
-                    target: Target<Bitmap>?,
+                    target: Target<Drawable>?,
                     dataSource: DataSource?,
                     isFirstResource: Boolean
                 ): Boolean {
-                    resource?.let {
+                    Timber.e("resource $resource")
+                    (resource as? BitmapDrawable)?.bitmap?.let {
                         val palette = Palette.from(it).generate()
                         val paletteTarget = androidx.palette.graphics.Target.DARK_MUTED
                         val selectedSwatch = palette[paletteTarget]

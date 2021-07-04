@@ -6,10 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
 import com.google.android.material.transition.MaterialContainerTransform
 import com.wind.deezerkmp.androidApp.databinding.ActivityMainBinding
-import com.wind.deezerkmp.androidApp.ui.track.TrackListFragment
 import com.wind.deezerkmp.androidApp.ui.artist.ArtistDetailFragment
 import com.wind.deezerkmp.androidApp.ui.artist.ArtistListFragment
 import com.wind.deezerkmp.androidApp.ui.track.MiniPlayerFragment
+import com.wind.deezerkmp.androidApp.ui.track.TrackListFragment
 import com.wind.deezerkmp.androidApp.util.NavViewModel
 import util.*
 
@@ -47,15 +47,8 @@ class MainActivity : AppCompatActivity() {
             }
             supportFragmentManager.commit(true) {
                 addSharedElement(it.view, it.view.transitionName)
-                setCustomAnimations(
-                    0,
-                    0,
-                    0,
-                    com.wind.collagePhotoMaker.share.R.anim.slide_out
-                )
                 replace(R.id.content, targetFrag)
                 addToBackStack(null)
-                setReorderingAllowed(true)
             }
         })
         vmNav.goToAlbumDetail.observe(this, EventObserver {

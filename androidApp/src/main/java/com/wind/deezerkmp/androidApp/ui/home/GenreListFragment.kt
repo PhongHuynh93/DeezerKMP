@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -24,10 +23,8 @@ import kotlinx.coroutines.flow.onEach
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
-import timber.log.Timber
 import util.Event
 import util.gone
-import util.recyclerview.GridItemDecoration
 import util.show
 
 /**
@@ -81,7 +78,6 @@ class GenreListFragment: Fragment() {
             layoutManager = GridLayoutManager(requireContext(), spanCount).apply {
                 spanSizeLookup = object: GridLayoutManager.SpanSizeLookup() {
                     override fun getSpanSize(position: Int): Int {
-                        Timber.e("itemviewtype ${concatAdapter.getItemViewType(position)}")
                         return if (concatAdapter.getItemViewType(position) == TYPE_HEADER) {
                             2
                         } else {

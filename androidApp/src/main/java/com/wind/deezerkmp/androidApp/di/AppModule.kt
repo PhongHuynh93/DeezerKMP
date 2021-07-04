@@ -26,7 +26,7 @@ val appModule = module {
     }
     factory { (frag: Fragment) ->
         val applicationContext = frag.requireContext().applicationContext
-        AlbumListAdapter(applicationContext, Glide.with(frag))
+        AlbumListAdapter(applicationContext, Glide.with(frag.requireActivity()))
     }
     factory { (_: Fragment) ->
         TitleHeaderAdapter()

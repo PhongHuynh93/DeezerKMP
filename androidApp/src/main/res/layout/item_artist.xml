@@ -24,11 +24,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            app:riv_dimensionRatio="1:1"
+            android:scaleType="center"
             app:image="@{item.model.pictureMedium}"
             app:requestManager="@{rm}"
+            app:riv_dimensionRatio="1:1"
             app:shapeAppearance="?attr/shapeAppearanceCircleComponent"
+            app:useOverride="@{true}"
             tools:src="@tools:sample/avatars" />
 
         <TextView
@@ -37,7 +38,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/space_tiny"
+            android:ellipsize="end"
             android:gravity="center"
+            android:maxLines="2"
             android:text="@{item.model.name}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
             app:layout_constraintEnd_toEndOf="parent"
